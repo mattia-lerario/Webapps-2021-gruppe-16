@@ -1,0 +1,55 @@
+main {
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+.support_form {
+  div {
+    margin-bottom: 1rem;
+  }
+
+  label {
+    display: block;
+  }
+}
+
+.issues {
+  ul {
+    list-style: none;
+  }
+}
+
+.issue {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+
+
+  h3 {
+    margin: 0;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    span {
+      border: 1px solid #000;
+      padding: 0.3rem;
+    }
+  }
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+
+  .issue_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
