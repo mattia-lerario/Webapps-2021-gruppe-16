@@ -50,6 +50,7 @@ const SupportForm = () => {
           value={form.description}
         />
       </div>
+
       <div>
         <label htmlFor="department">Avdeling</label>
         <select
@@ -78,18 +79,16 @@ const SupportForm = () => {
           <option value="3">Lav</option>
         </select>
       </div>
+
       <div>
-        <label htmlFor="status">Status</label>
-        <select
+        <label htmlFor="status"></label>
+        <input
           id="status"
           name="status"
+          type="hidden"
           onChange={handleInputOnChange}
-          value={form.status}
-        >
-          <option value="">Velg status</option>
-          <option value="1">Åpen</option>
-          <option value="2">Lukket</option>
-        </select>
+          value="Åpen"
+        ></input>
       </div>
       <button type="sumbit">Send henvendelse</button>
     </form>
