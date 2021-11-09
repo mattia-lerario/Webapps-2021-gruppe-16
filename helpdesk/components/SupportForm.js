@@ -81,7 +81,7 @@ const SupportForm = () => {
       </div>
 
       <div>
-        <label htmlFor="status"></label>
+        <label htmlFor="status">Status</label>
         <input
           id="status"
           name="status"
