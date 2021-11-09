@@ -5,6 +5,8 @@ const SupportForm = () => {
     title: '',
     creator: '',
     description: '',
+    status: '',
+    priority: '',
   })
 
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
@@ -48,8 +50,46 @@ const SupportForm = () => {
           value={form.description}
         />
       </div>
-      <div>{/* TODO Add department */}</div>
-      <div>{/* TODO Add severity */}</div>
+
+      <div>
+        <label htmlFor="department">Avdeling</label>
+        <select
+          id="department"
+          name="department"
+          onChange={handleInputOnChange}
+          value={form.department}
+        >
+          <option value="">Velg avdeling</option>
+          <option value="1">IT</option>
+          <option value="2">Design</option>
+          <option value="3">Salg</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="priority">Prioritet</label>
+        <select
+          id="priority"
+          name="priority"
+          onChange={handleInputOnChange}
+          value={form.priority}
+        >
+          <option value="">Velg prioritet</option>
+          <option value="1">Høy</option>
+          <option value="2">Medium</option>
+          <option value="3">Lav</option>
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="status"></label>
+        <input
+          id="status"
+          name="status"
+          type="hidden"
+          onChange={handleInputOnChange}
+          value="Åpen"
+        ></input>
+      </div>
       <button type="sumbit">Send henvendelse</button>
     </form>
   )
