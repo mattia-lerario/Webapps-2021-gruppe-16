@@ -18,7 +18,10 @@ const SupportList = ({ issues }) => {
       </select>
       <ul>
         {issues
-          .filter((issue) => issue.severity == severityF.severity)
+          .filter(
+            (issue) =>
+              issue.severity == severityF.severity || severityF.severity == ''
+          )
           .map((issue) => (
             <SupportItem key={issue.id} issue={issue} />
           ))}
