@@ -24,7 +24,7 @@ export default function Home() {
             creator: 'Simen Simensen',
             description:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non neque diam. Nam placerat nunc id vulputate pretium. In ac metus sit amet augue suscipit ornare.',
-            department: 'it',
+            department: 'design',
             severity: 'medium',
             isResolved: false,
             createdAt: new Date(2021, 11, 6).toLocaleDateString(),

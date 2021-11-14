@@ -1,38 +1,48 @@
 import SupportItem from './SupportItem'
 import { useState } from 'react'
 const SupportList = ({ issues }) => {
-  const [severityF, setFilters] = useState({
+  const [filters, setFilters] = useState({
     severity: '',
     category: '',
   })
   return (
     <section className="issues">
       <h2>Henvendelser</h2>
-      <select
-        name="severity"
-        onChange={(e) => setFilters({ severity: e.target.value })}
-      >
-        <option value="">Alle</option>
-        <option value="low">Lav</option>
-        <option value="medium">Medium</option>
-        <option value="high">Høj</option>
-      </select>
+      <div className="filters">
+        <select
+          name="severity"
+          onChange={(e) => setFilters({ severity: e.target.value })}
+        >
+          <option value="" disabled selected hidden>
+            Viktighet
+          </option>
+          <option value="">Alle</option>
+          <option value="low">Lav</option>
+          <option value="medium">Medium</option>
+          <option value="high">Høj</option>
+        </select>
 
-      <h2>Henvendelser</h2>
-      <select
-        name="category"
-        onChange={(e) => setFilters({ category: e.target.value })}
-      >
-        <option value="">Alle</option>
-        <option value="low">IT</option>
-        <option value="medium">Medium</option>
-        <option value="high">Høj</option>
-      </select>
+        <select
+          name="category"
+          onChange={(e) => setFilters({ category: e.target.value })}
+        >
+          <option value="" disabled selected hidden>
+            Avdeling
+          </option>
+          <option value="">Alle</option>
+          <option value="it">IT</option>
+          <option value="design">Design</option>
+          <option value="salg">Salg</option>
+        </select>
+      </div>
       <ul>
         {issues
           .filter(
             (issue) =>
-              issue.severity == severityF.severity || severityF.severity == ''
+              issue.severity == filters.severity ||
+              filters.severity == '' ||
+              issue.department == filters.category ||
+              filters.category == ''
           )
           .map((issue) => (
             <SupportItem key={issue.id} issue={issue} />
