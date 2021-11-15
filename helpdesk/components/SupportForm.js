@@ -14,7 +14,7 @@ const SupportForm = () => {
 
   const handleSendSupport = (event) => {
     event.preventDefault()
-    console.log(form)
+    console.log(form)z
   }
 
   return (
@@ -28,6 +28,7 @@ const SupportForm = () => {
           name="title"
           onChange={handleInputOnChange}
           value={form.title}
+          required
         />
       </div>
       <div>
