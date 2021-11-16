@@ -23,7 +23,7 @@ const SupportList = ({ issues }) => {
           </option>
           <option value="low">Lav</option>
           <option value="medium">Medium</option>
-          <option value="high">Høj</option>
+          <option value="high">Høy</option>
         </select>
 
         <select

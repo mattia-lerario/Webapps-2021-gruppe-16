@@ -64,16 +64,19 @@ export default function Home() {
             comments: [
               {
                 id: 1,
+                title: 'Comment 1',
                 creator: 'Marius Wallin',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non neque diam. Nam placerat nunc id vulputate pretium. In ac metus sit amet augue suscipit ornare.',
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non neque diam. Nam placerat nunc id vulputate pretium. In ac metus sit amet augue suscipit ornare.',
                 createdAt: new Date(2021, 11, 22).toLocaleDateString(),
               },
               {
                 id: 2,
-                title: 'Title three',
+                title: 'Comment 2',
                 creator: 'Marius Wallin',
                 description:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non neque diam. Nam placerat nunc id vulputate pretium. In ac metus sit amet augue suscipit ornare.',
+                createdAt: new Date(2021, 11, 22).toLocaleDateString(),
               },
             ],
           },
