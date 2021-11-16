@@ -69,6 +69,18 @@ main {
     &_add {
       @extend .issue_comment;
       color: red;
+
+      textarea {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 4rem;
+        width: 100%;
+        resize: none;
+        border: none;
+        outline: none;
+        overflow-y: auto;
+      }
     }
   }
 }

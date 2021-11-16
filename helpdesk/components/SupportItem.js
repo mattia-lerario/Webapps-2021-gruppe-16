@@ -1,4 +1,5 @@
 /* eslint-disable no-ternary */
+import { create } from 'middleware/database'
 import { useState } from 'react'
 import SupportComment from './SupportComment'
 
@@ -11,12 +12,19 @@ const SupportItem = ({ issue: item }) => {
   // STATE AND HANDLERS FOR SHOWING COMMENT & ADD COMMENT SECTION
   const [showComments, setShowComments] = useState(false)
   const [showAddComment, setShowAddComment] = useState(false)
+  const [comment, setComment] = useState({ description: '' })
 
   const handleShowComments = () => setShowComments(!showComments)
   const handleShowAddComment = () => setShowAddComment(!showAddComment)
-  const handleAddComment = () => {
+
+  const handleInputOnChange = ({ currentTarget: { name, value } }) =>
+    setComment({ [name]: value })
+
+  const handleAddComment = (event) => {
+    event.preventDefault()
+    console.log(comment?.description)
     // 1. Validate comment
-    // 2. Add comment to issue
+    // 2. Add comment to issue (REMINDER: Add ID to h5)
     // 3. Update comment through API in DB
     return
   }
@@ -43,7 +51,10 @@ const SupportItem = ({ issue: item }) => {
             <button type="button" onClick={handleShowAddComment}>
               Legg til kommentar
             </button>
-            <button type="button" onClick={item?.isResolved == '(løst)'}>
+            <button
+              type="button"
+              // onClick={item?.isResolved == '(løst)'} // Creates Errors
+            >
               Avslutt
             </button>
           </div>
@@ -51,7 +62,7 @@ const SupportItem = ({ issue: item }) => {
       </li>
 
       {/* SHOW COMMENTS SECTION */}
-      {showComments && (
+      {showComments && item?.comments && (
         <section>
           {item?.comments?.map((comment) => (
             <SupportComment key={comment.id} comment={comment} />
@@ -63,10 +74,18 @@ const SupportItem = ({ issue: item }) => {
       {showAddComment && (
         <section className="issue_comment_add">
           <h5>Legg til kommentar</h5>
-          <input type="textfield" />
-          <button type="button" onClick={handleAddComment}>
-            Send
-          </button>
+          <form onSubmit={handleAddComment}>
+            <textarea
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Skriv her"
+              maxLength="250"
+              onChange={handleInputOnChange}
+              required
+            />
+            <button type="sumbit">Send</button>
+          </form>
         </section>
       )}
     </>

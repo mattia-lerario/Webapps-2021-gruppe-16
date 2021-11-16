@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-const SupportComments = ({ comment }) => {
+export const SupportComment = ({ comment }) => {
   return (
     <div className="issue_comment">
-      <h5>{comment?.title}</h5>
+      <h5>Kommentar {comment?.id}</h5>
       <p>{comment?.description}</p>
     </div>
   )
 }
 
-export default SupportComments
+export default SupportComment
