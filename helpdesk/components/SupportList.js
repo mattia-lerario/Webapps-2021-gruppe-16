@@ -5,13 +5,14 @@ const SupportList = ({ issues }) => {
     severity: '',
     category: '',
   })
+  console.log(issues)
   return (
     <section className="issues">
       <h2>Henvendelser</h2>
       <div className="filters">
         <select
           name="severity"
-          onChange={(e) => setFilters({ severity: e.target.value })}
+          onChange={(e) => setFilters({ ...filters, severity: e.target.value })}
         >
           <option value="" disabled hidden defaultValue>
             Viktighet
@@ -26,7 +27,7 @@ const SupportList = ({ issues }) => {
 
         <select
           name="category"
-          onChange={(e) => setFilters({ category: e.target.value })}
+          onChange={(e) => setFilters({ ...filters, category: e.target.value })}
         >
           <option value="" disabled hidden defaultValue>
             Avdeling
@@ -43,10 +44,11 @@ const SupportList = ({ issues }) => {
         {issues
           .filter(
             (issue) =>
-              issue.severity == '' ||
-              filters.severity ||
-              issue.department == '' ||
-              filters.category
+              (!filters.severity && !filters.category) ||
+              (!filters.severity && issue.department == filters.category) ||
+              (issue.severity == filters.severity && !filters.category) ||
+              (issue.severity == filters.severity &&
+                issue.department == filters.category)
           )
 
           .map((issue) => (
