@@ -5,6 +5,7 @@ const SupportList = ({ issues }) => {
     severity: '',
     category: '',
   })
+  console.log(issues)
   return (
     <section className="issues">
       <h2>Henvendelser</h2>
@@ -43,10 +44,10 @@ const SupportList = ({ issues }) => {
         {issues
           .filter(
             (issue) =>
-              issue.severity == '' ||
-              filters.severity ||
-              issue.department == '' ||
-              filters.category
+              issue.severity == filters.severity ||
+              filters.severity == '' ||
+              issue.department == filters.category ||
+              filters.category == ''
           )
 
           .map((issue) => (
