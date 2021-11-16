@@ -6,7 +6,9 @@ const SupportItem = ({ issue: item }) => {
   const statusCompleted = item?.status === 'completed' ? 'Ferdig' : null
   const statusInProgress =
     item?.status === 'in_progress' ? 'Under arbeid' : null
-  console.log(item)
+
+  console.log(item) // REMOVE
+
   return (
     <li className="issue">
       <div className="meta">

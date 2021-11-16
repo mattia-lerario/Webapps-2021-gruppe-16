@@ -12,9 +12,25 @@ const SupportForm = () => {
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
     setForm((state) => ({ ...state, [name]: value }))
 
+  const validateForm = (form) => {
+    if (form.title.len < 25 || form.title.len > 150) return false // Validate title
+
+    if (!/^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/.test(form.creator)) return false // Validate creator
+    // RegExp: Any number capitalized words containing any number lowercase letters, with a space between.
+
+    if (form.description.len > 250) return false // Validate description
+
+    if (!form.title || !form.priority) return false // Validate status & priority
+
+    return true
+  }
+
   const handleSendSupport = (event) => {
     event.preventDefault()
-    console.log(form)z
+
+    if (!validateForm(form)) console.log('Invalid form') // Invalid form error
+
+    console.log(form) // send to API
   }
 
   return (
@@ -26,6 +42,8 @@ const SupportForm = () => {
           type="text"
           id="title"
           name="title"
+          minLength="25"
+          maxLength="150"
           onChange={handleInputOnChange}
           value={form.title}
           required
@@ -37,8 +55,11 @@ const SupportForm = () => {
           type="text"
           id="creator"
           name="creator"
+          pattern="^[A-Z][a-z]*(\s[A-Z][a-z]*)*$"
+          // RegExp: Any number capitalized words containing any number lowercase letters, with a space between.
           onChange={handleInputOnChange}
           value={form.creator}
+          required
         />
       </div>
       <div>
@@ -47,8 +68,10 @@ const SupportForm = () => {
           type="text"
           id="description"
           name="description"
+          maxLength="250"
           onChange={handleInputOnChange}
           value={form.description}
+          required
         />
       </div>
 
@@ -59,6 +82,7 @@ const SupportForm = () => {
           name="department"
           onChange={handleInputOnChange}
           value={form.department}
+          required
         >
           <option value="">Velg avdeling</option>
           <option value="1">IT</option>
@@ -73,6 +97,7 @@ const SupportForm = () => {
           name="priority"
           onChange={handleInputOnChange}
           value={form.priority}
+          required
         >
           <option value="">Velg prioritet</option>
           <option value="1">Høy</option>
