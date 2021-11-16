@@ -13,10 +13,12 @@ const SupportList = ({ issues }) => {
           name="severity"
           onChange={(e) => setFilters({ severity: e.target.value })}
         >
-          <option value="" disabled selected hidden>
+          <option value="" disabled hidden defaultValue>
             Viktighet
           </option>
-          <option value="">Alle</option>
+          <option value="" selected>
+            Alle
+          </option>
           <option value="low">Lav</option>
           <option value="medium">Medium</option>
           <option value="high">Høj</option>
@@ -26,10 +28,12 @@ const SupportList = ({ issues }) => {
           name="category"
           onChange={(e) => setFilters({ category: e.target.value })}
         >
-          <option value="" disabled selected hidden>
+          <option value="" disabled hidden defaultValue>
             Avdeling
           </option>
-          <option value="">Alle</option>
+          <option value="" selected>
+            Alle
+          </option>
           <option value="it">IT</option>
           <option value="design">Design</option>
           <option value="salg">Salg</option>
@@ -39,11 +43,12 @@ const SupportList = ({ issues }) => {
         {issues
           .filter(
             (issue) =>
-              issue.severity == filters.severity ||
-              filters.severity == '' ||
-              issue.department == filters.category ||
-              filters.category == ''
+              issue.severity == '' ||
+              filters.severity ||
+              issue.department == '' ||
+              filters.category
           )
+
           .map((issue) => (
             <SupportItem key={issue.id} issue={issue} />
           ))}
