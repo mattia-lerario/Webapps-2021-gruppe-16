@@ -6,36 +6,28 @@ const SupportList = ({ issues }) => {
     severity: '',
     category: '',
   })
-  console.log(issues)
+
   return (
     <section className="issues">
       <h2>Henvendelser</h2>
       <div className="filters">
         <select
           name="severity"
+          defaultValue={''}
           onChange={(e) => setFilters({ ...filters, severity: e.target.value })}
         >
-          <option value="" disabled hidden defaultValue>
-            Viktighet
-          </option>
-          <option value="" selected>
-            Alle
-          </option>
+          <option value="">Alle</option>
           <option value="low">Lav</option>
           <option value="medium">Medium</option>
-          <option value="high">Høj</option>
+          <option value="high">Høy</option>
         </select>
 
         <select
           name="category"
+          defaultValue={''}
           onChange={(e) => setFilters({ ...filters, category: e.target.value })}
         >
-          <option value="" disabled hidden defaultValue>
-            Avdeling
-          </option>
-          <option value="" selected>
-            Alle
-          </option>
+          <option value="">Alle</option>
           <option value="it">IT</option>
           <option value="design">Design</option>
           <option value="salg">Salg</option>
