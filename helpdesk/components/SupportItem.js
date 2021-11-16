@@ -1,5 +1,4 @@
 /* eslint-disable no-ternary */
-import { create } from 'middleware/database'
 import { useState } from 'react'
 import SupportComment from './SupportComment'
 
@@ -16,17 +15,31 @@ const SupportItem = ({ issue: item }) => {
 
   const handleShowComments = () => setShowComments(!showComments)
   const handleShowAddComment = () => setShowAddComment(!showAddComment)
+  const handleResolve = (event) => {
+    event.preventDefault()
+    item.isResolved = true
+    // REMINDER: Doesn't force re-render. Should probably be handled via state through parent
+  }
 
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
     setComment({ [name]: value })
 
   const handleAddComment = (event) => {
     event.preventDefault()
-    console.log(comment?.description)
-    // 1. Validate comment
+
+    // 1. Give comment an ID
+    let id = item?.comments ? item.comments.length + 1 : 1
+
     // 2. Add comment to issue (REMINDER: Add ID to h5)
+    if (item?.comments) {
+      item.comments.push({ id: id, ...comment })
+    } else {
+      item['comments'] = [{ id: id, ...comment }]
+    }
+
     // 3. Update comment through API in DB
-    return
+    // 4. Close comment field
+    setShowAddComment(false)
   }
 
   return (
@@ -51,11 +64,8 @@ const SupportItem = ({ issue: item }) => {
             <button type="button" onClick={handleShowAddComment}>
               Legg til kommentar
             </button>
-            <button
-              type="button"
-              // onClick={item?.isResolved == '(løst)'} // Creates Errors
-            >
-              Avslutt
+            <button type="button" onClick={handleResolve}>
+              {item?.isResolved ? '(løst)' : 'Avslutt'}
             </button>
           </div>
         </footer>
