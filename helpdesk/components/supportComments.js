@@ -1,5 +1,6 @@
 //make const that takes all comments found in issues and shows them
 import { useState } from 'react'
+
 const SupportComments = ({ issue }) => {
   return (
     <div className="support-comments">

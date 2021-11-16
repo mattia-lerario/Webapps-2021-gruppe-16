@@ -1,6 +1,7 @@
 /* eslint-disable no-ternary */
 import { useState } from 'react'
 import SupportComments from './supportComments'
+
 const SupportItem = ({ issue: item }) => {
   const severityHigh = item?.severity === 'high' ? 'Høy' : null
   const severityMedium = item?.severity === 'medium' ? 'Medium' : null
@@ -20,13 +21,17 @@ const SupportItem = ({ issue: item }) => {
       <footer>
         <p>{item?.createdAt}</p>
         <div className="issue_actions">
-          <button type="button">Se kommentarer (2)</button>
+          <button type="button">
+            Se kommentarer ({item?.comments ? item.comments.length : 0})
+          </button>
           <button type="button">Legg til kommentar</button>
           <button type="button" onClick={item?.isResolved == '(løst)'}>
             Avslutt
           </button>
         </div>
       </footer>
+      <div className="issue_comments">a</div>
+      <div className="issue_new_comment">Legg til kommentar</div>
     </li>
   )
 }
