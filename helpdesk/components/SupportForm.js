@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 const SupportForm = () => {
   const [form, setForm] = useState({
     title: '',
@@ -21,7 +20,7 @@ const SupportForm = () => {
     if (form.description.len > 250) return false // Validate description
 
     if (!form.title || !form.priority) return false // Validate status & priority
-
+    
     return true
   }
 
