@@ -8,7 +8,6 @@ async function main() {
   console.log('Start seeding ...')
   // Kalle på seed funksjoner
   console.log('Seeding finished.')
-}
 
 main()
   .catch((e) => {
@@ -18,3 +17,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
+
+  //create prisma client 

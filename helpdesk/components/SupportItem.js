@@ -9,20 +9,27 @@ const SupportItem = ({ issue: item }) => {
   const severityLow = item?.severity === 'low' ? 'Lav' : null
 
   // STATE AND HANDLERS FOR SHOWING COMMENT & ADD COMMENT SECTION
-  const [showComments, setShowComments] = useState(false)
+  const [showComments, setShowComments] = useState(true)
   const [showAddComment, setShowAddComment] = useState(false)
+  const [showIssue, setShowIssue] = useState(true)
   const [comment, setComment] = useState({ description: '' })
-
   const handleShowComments = () => setShowComments(!showComments)
   const handleShowAddComment = () => setShowAddComment(!showAddComment)
-  const handleResolve = (event) => {
-    event.preventDefault()
-    item.isResolved = true
-    // REMINDER: Doesn't force re-render. Should probably be handled via state through parent
-  }
+  const handleShowIssue = () => setShowIssue(!showIssue)
 
+  //create function that removes and hides issues from list
+
+  const handleDeleteIssue = (e) => {
+    e.preventDefault()
+    handleShowIssue(!showIssue)
+    if (showIssue === false) {
+      setShowComments(false)
+      setShowAddComment(false)
+    }
+  }
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
     setComment({ [name]: value })
+  // handle resolve and remove issue from list
 
   const handleAddComment = (event) => {
     event.preventDefault()
@@ -37,9 +44,14 @@ const SupportItem = ({ issue: item }) => {
       item['comments'] = [{ id: id, ...comment }]
     }
 
-    // 3. Update comment through API in DB
+    // 4. Clear comment input
+    setComment({ description: '' })
+
     // 4. Close comment field
     setShowAddComment(false)
+
+    // 5. Show comments
+    setShowComments(true)
   }
 
   return (
@@ -64,7 +76,7 @@ const SupportItem = ({ issue: item }) => {
             <button type="button" onClick={handleShowAddComment}>
               Legg til kommentar
             </button>
-            <button type="button" onClick={handleResolve}>
+            <button type="button" onClick={handleDeleteIssue}>
               {item?.isResolved ? '(løst)' : 'Avslutt'}
             </button>
           </div>

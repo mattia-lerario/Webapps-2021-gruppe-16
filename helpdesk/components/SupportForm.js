@@ -30,7 +30,9 @@ const SupportForm = () => {
 
     if (!validateForm(form)) console.log('Invalid form') // Invalid form error
 
-    console.log(form) // send to API
+   
+
+  }
   }
 
   return (
