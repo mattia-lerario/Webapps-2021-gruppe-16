@@ -29,10 +29,6 @@ const SupportForm = () => {
     event.preventDefault()
 
     if (!validateForm(form)) console.log('Invalid form') // Invalid form error
-
-   
-
-  }
   }
 
   return (
