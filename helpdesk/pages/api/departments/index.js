@@ -7,6 +7,6 @@ export default async function departments(req, res) {
         id: 'desc',
       },
     })
-    return res.status(200).json({ success: true, departments })
+    return res.status(200).json(departments)
   }
 }

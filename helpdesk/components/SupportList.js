@@ -1,24 +1,11 @@
 import SupportItem from './SupportItem'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 
-const SupportList = () => {
-  // const SupportList = ({ issues }) => {
+const SupportList = ({ issues, departments }) => {
   const [filters, setFilters] = useState({
     severity: '',
-    category: '',
+    department: '',
   })
-
-  const [issues, setIssues] = useState([])
-
-  useEffect(async () => {
-    const response = await axios.get('/api/issues')
-    setIssues(response?.data)
-
-    return () => {
-      // Cleanup
-    }
-  }, [])
 
   return !issues ? (
     <p>Loading</p>
@@ -43,16 +30,20 @@ const SupportList = () => {
           </select>
 
           <select
-            name="category"
+            name="department"
             defaultValue={''}
             onChange={(e) =>
-              setFilters({ ...filters, category: e.target.value })
+              setFilters({ ...filters, department: e.target.value })
             }
           >
             <option value="">Alle</option>
-            <option value="it">IT</option>
-            <option value="design">Design</option>
-            <option value="salg">Salg</option>
+            {departments?.map((department) => {
+              return (
+                <option key={department.name} value={department.id}>
+                  {department.name}
+                </option>
+              )
+            })}
           </select>
         </div>
       </div>
@@ -61,15 +52,21 @@ const SupportList = () => {
         {issues
           .filter(
             (issue) =>
-              (!filters.severity && !filters.category) ||
-              (!filters.severity && issue.department == filters.category) ||
-              (issue.severity == filters.severity && !filters.category) ||
+              (!filters.severity && !filters.department) ||
+              (!filters.severity && issue.departmentId == filters.department) ||
+              (issue.severity == filters.severity && !filters.department) ||
               (issue.severity == filters.severity &&
-                issue.department == filters.category)
+                issue.departmentId == filters.department)
           )
 
           .map((issue) => (
-            <SupportItem key={issue.id} issue={issue} />
+            <SupportItem
+              key={issue.id}
+              issue={issue}
+              department={departments.find(
+                (dept) => dept.id == issue.departmentId
+              )}
+            />
           ))}
       </ul>
     </section>

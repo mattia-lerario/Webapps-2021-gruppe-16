@@ -14,14 +14,14 @@ const SupportForm = () => {
     setForm((state) => ({ ...state, [name]: value }))
 
   const validateForm = (form) => {
-    if (form.title.len < 25 || form.title.len > 150) return false // Validate title
+    if (form?.title.length < 25 || form?.title.length > 150) return false // Validate title
 
-    if (!/^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/.test(form.creator)) return false // Validate creator
+    if (!/^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/.test(form?.creator)) return false // Validate creator
     // RegExp: Any number capitalized words containing any number lowercase letters, with a space between.
 
-    if (form.description.len > 250) return false // Validate description
+    if (form?.description.length > 250) return false // Validate description
 
-    if (!form.title || !form.priority) return false // Validate status & priority
+    if (!form?.title || !form?.severity) return false // Validate status & priority
 
     return true
   }
@@ -33,7 +33,7 @@ const SupportForm = () => {
 
     axios.post('/api/issues', form) // Send form to API to create new issue
 
-    // Redirect user to new issue or issue list
+    window.location.href = '/issues' // Redirect user to new issue or issue list
   }
 
   return (

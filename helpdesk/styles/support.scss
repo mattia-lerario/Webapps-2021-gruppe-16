@@ -79,6 +79,10 @@ main {
     justify-content: flex-end;
     gap: 8px;
   }
+
+  &_date {
+    font-size: 0.75rem;
+  }
   
   &_comment {
     @extend .issue;
@@ -90,6 +94,10 @@ main {
     p {
       margin: 0.5rem 0;
       overflow-wrap: anywhere;
+    }
+
+    &_date {
+      font-size: 0.75rem;
     }
 
     &_add {
