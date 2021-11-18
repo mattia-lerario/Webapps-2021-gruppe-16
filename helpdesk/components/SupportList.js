@@ -9,8 +9,11 @@ const SupportList = ({ issues }) => {
 
   return (
     <section className="issues">
-      <h2>Henvendelser</h2>
-      <div className="filters">
+      <div id="issuesHeader">
+      <div id="issuesTitle">
+        <h2>Henvendelser</h2>
+      </div>
+      <div id="issuesFilters">
         <select
           name="severity"
           defaultValue={''}
@@ -33,6 +36,8 @@ const SupportList = ({ issues }) => {
           <option value="salg">Salg</option>
         </select>
       </div>
+      </div>
+
       <ul>
         {issues
           .filter(

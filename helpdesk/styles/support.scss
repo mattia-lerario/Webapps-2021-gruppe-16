@@ -14,9 +14,34 @@ main {
 }
 
 .issues {
+  #issuesHeader{
+  display: grid;
+  grid-area: auto;
+
+  select {
+    appearance: none;
+    border-radius: 0.5rem;
+    border-color: lightgrey;
+    border-width: 0.15rem;
+    padding: 0.3rem;
+    margin: 0.5rem;
+
+  }
+  #issuesTitle{
+    grid-column: 1;
+  }
+
+  #issuesFilters{
+    grid-column: 2;
+  }
+  }
+
   ul {
     list-style: none;
   }
+
+
+
 }
 
 .issue {
