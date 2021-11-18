@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import axios from 'axios'
+
 const SupportForm = () => {
   const [form, setForm] = useState({
     title: '',
     creator: '',
     description: '',
-    status: '',
-    priority: '',
+    department: '',
+    severity: '',
   })
 
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
@@ -19,15 +21,17 @@ const SupportForm = () => {
 
     if (form.description.len > 250) return false // Validate description
 
-    if (!form.title || !form.priority) return false // Validate status & priority
-    
+    if (!form.title || !form.severity) return false // Validate status & severity
+
     return true
   }
 
   const handleSendSupport = (event) => {
     event.preventDefault()
 
-    if (!validateForm(form)) console.log('Invalid form') // Invalid form error
+    if (!validateForm(form)) return console.log('Invalid form') // Invalid form error
+
+    axios.post('/api/issues', form)
   }
 
   return (
@@ -82,37 +86,27 @@ const SupportForm = () => {
           required
         >
           <option value="">Velg avdeling</option>
-          <option value="1">IT</option>
-          <option value="2">Design</option>
-          <option value="3">Salg</option>
+          <option value="it">IT</option>
+          <option value="design">Design</option>
+          <option value="salg">Salg</option>
         </select>
       </div>
       <div>
-        <label htmlFor="priority">Prioritet</label>
+        <label htmlFor="severity">Prioritet</label>
         <select
-          id="priority"
-          name="priority"
+          id="severity"
+          name="severity"
           onChange={handleInputOnChange}
-          value={form.priority}
+          value={form.severity}
           required
         >
           <option value="">Velg prioritet</option>
-          <option value="1">Høy</option>
-          <option value="2">Medium</option>
-          <option value="3">Lav</option>
+          <option value="high">Høy</option>
+          <option value="medium">Medium</option>
+          <option value="low">Lav</option>
         </select>
       </div>
 
-      <div>
-        <label htmlFor="status">Status</label>
-        <input
-          id="status"
-          name="status"
-          type="hidden"
-          onChange={handleInputOnChange}
-          value="Åpen"
-        ></input>
-      </div>
       <button type="sumbit">Send henvendelse</button>
     </form>
   )
