@@ -7,6 +7,7 @@ export default async function departments(req, res) {
         id: 'desc',
       },
     })
+    if (!departments) return res.status(404).json('failed to get departments')
     return res.status(200).json(departments)
   }
 }

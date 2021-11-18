@@ -8,6 +8,7 @@ export default function Issues() {
 
   useEffect(async () => {
     const response = await axios.get('/api/issues')
+
     setIssues(response?.data)
 
     return () => {
@@ -17,7 +18,8 @@ export default function Issues() {
 
   useEffect(async () => {
     const response = await axios.get('/api/departments')
-    setDepartments(response.data.map((department) => department))
+
+    setDepartments(response?.data.map((department) => department))
 
     return () => {
       // Cleanup

@@ -25,12 +25,11 @@ const SupportItem = ({ issue: item, department }) => {
     const temp = []
     const response = await axios.get('/api/comments')
 
-    response.data.map((comment) => {
+    response?.data.map((comment) => {
       if (comment.issueId === item.id) {
         temp.push(comment)
       }
     })
-
     setComments(temp)
 
     return () => {
