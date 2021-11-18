@@ -1,15 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/lib/clients/db'
 
-export default function handler(req, res) {
-  res.status(200).json({ message: 'Message from API' })
-
+export default async function handler(req, res) {
   if (req.method === 'GET') {
     const issues = await prisma.issue.findMany({
       orderBy: {
         id: 'desc',
       },
     })
-    res.json(issues)
+    return res.status(200).json({ success: true, issues })
   }
 }
