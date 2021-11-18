@@ -8,10 +8,6 @@ export default async function handler(req, res) {
 
   await prisma.$transaction([deleteDepartment, deleteComment, deleteIssue])
 
-  const newIssues = []
-  const newComments = []
-  const newDepartments = []
-
   // DEPARTMENTS
   const departments = ['it', 'design', 'salg']
 
