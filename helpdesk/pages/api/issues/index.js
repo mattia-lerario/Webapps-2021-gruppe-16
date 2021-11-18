@@ -1,6 +1,6 @@
 import prisma from '@/lib/clients/db'
 
-export default async function issues(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'GET') {
     const issues = await prisma.issue.findMany({
       orderBy: {

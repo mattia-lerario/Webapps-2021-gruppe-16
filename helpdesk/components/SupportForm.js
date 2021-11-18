@@ -1,13 +1,11 @@
 import { useState } from 'react'
-import axios from 'axios'
-
 const SupportForm = () => {
   const [form, setForm] = useState({
     title: '',
     creator: '',
     description: '',
-    department: '',
-    severity: '',
+    status: '',
+    priority: '',
   })
 
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
@@ -21,7 +19,7 @@ const SupportForm = () => {
 
     if (form.description.len > 250) return false // Validate description
 
-    if (!form.title || !form.severity) return false // Validate status & severity
+    if (!form.title || !form.priority) return false // Validate status & priority
 
     return true
   }
@@ -88,27 +86,37 @@ const SupportForm = () => {
           required
         >
           <option value="">Velg avdeling</option>
-          <option value="it">IT</option>
-          <option value="design">Design</option>
-          <option value="salg">Salg</option>
+          <option value="1">IT</option>
+          <option value="2">Design</option>
+          <option value="3">Salg</option>
         </select>
       </div>
       <div>
-        <label htmlFor="severity">Prioritet</label>
+        <label htmlFor="priority">Prioritet</label>
         <select
-          id="severity"
-          name="severity"
+          id="priority"
+          name="priority"
           onChange={handleInputOnChange}
-          value={form.severity}
+          value={form.priority}
           required
         >
           <option value="">Velg prioritet</option>
-          <option value="high">Høy</option>
-          <option value="medium">Medium</option>
-          <option value="low">Lav</option>
+          <option value="1">Høy</option>
+          <option value="2">Medium</option>
+          <option value="3">Lav</option>
         </select>
       </div>
 
+      <div>
+        <label htmlFor="status">Status</label>
+        <input
+          id="status"
+          name="status"
+          type="hidden"
+          onChange={handleInputOnChange}
+          value="Åpen"
+        ></input>
+      </div>
       <button type="sumbit">Send henvendelse</button>
     </form>
   )
