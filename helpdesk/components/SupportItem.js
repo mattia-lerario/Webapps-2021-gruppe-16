@@ -9,7 +9,7 @@ const SupportItem = ({ issue: item }) => {
   const severityLow = item?.severity === 'low' ? 'Lav' : null
 
   // STATE AND HANDLERS FOR SHOWING COMMENT & ADD COMMENT SECTION
-  const [showComments, setShowComments] = useState(true)
+  const [showComments, setShowComments] = useState(false)
   const [showAddComment, setShowAddComment] = useState(false)
   const [showIssue, setShowIssue] = useState(true)
   const [comment, setComment] = useState({ description: '' })
@@ -18,7 +18,6 @@ const SupportItem = ({ issue: item }) => {
   const handleShowIssue = () => setShowIssue(!showIssue)
 
   //create function that removes and hides issues from list
-
   const handleDeleteIssue = (e) => {
     e.preventDefault()
     handleShowIssue(!showIssue)
