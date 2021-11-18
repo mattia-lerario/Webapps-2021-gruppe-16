@@ -1,9 +1,13 @@
 /* eslint-disable no-ternary */
+import { useRouter } from 'next/dist/client/router'
 import { useState, useEffect } from 'react'
 import SupportComment from './SupportComment'
 import axios from 'axios'
 
-const SupportItem = ({ issue: item, department }) => {
+const SupportItem = ({ issue: item, department, initialShowComment }) => {
+  // ROUTER
+  const router = useRouter()
+
   // TRANSLATE ENGLISH TO NORWEGIAN ???
   const severityHigh = item?.severity === 'high' ? 'Høy' : null
   const severityMedium = item?.severity === 'medium' ? 'Medium' : null
@@ -15,7 +19,7 @@ const SupportItem = ({ issue: item, department }) => {
     comment: '',
     issueId: item.id,
   })
-  const [showComments, setShowComments] = useState(false)
+  const [showComments, setShowComments] = useState(initialShowComment)
   const [showAddComment, setShowAddComment] = useState(false)
   const handleShowComments = () => setShowComments(!showComments)
   const handleShowAddComment = () => setShowAddComment(!showAddComment)
@@ -55,6 +59,12 @@ const SupportItem = ({ issue: item, department }) => {
     setShowComments(true)
   }
 
+  // HANDLE CLICK TITLE
+  const handleTitleClick = (event) => {
+    event.preventDefault()
+    router.push(`/issues/${item.id}`)
+  }
+
   // FORMAT VALUES
   const date = item?.createdAt
   const formatedDate = new Date(date).toLocaleDateString()
@@ -71,7 +81,7 @@ const SupportItem = ({ issue: item, department }) => {
           <span>{departmentName}</span>
           <span>{severityHigh ?? severityMedium ?? severityLow}</span>
         </div>
-        <h3>
+        <h3 onClick={handleTitleClick}>
           {item?.title} {item?.isResolved ? '(løst)' : null}
         </h3>
         <p>{item?.description}</p>

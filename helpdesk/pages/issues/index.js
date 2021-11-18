@@ -11,9 +11,7 @@ export default function Issues() {
 
     setIssues(response?.data)
 
-    return () => {
-      // Cleanup
-    }
+    return () => {} // Cleanup
   }, [])
 
   useEffect(async () => {
@@ -21,9 +19,7 @@ export default function Issues() {
 
     setDepartments(response?.data.map((department) => department))
 
-    return () => {
-      // Cleanup
-    }
+    return () => {} // Cleanup
   }, [])
 
   return !(issues && departments) ? (

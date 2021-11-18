@@ -66,6 +66,7 @@ const SupportList = ({ issues, departments }) => {
               department={departments.find(
                 (dept) => dept.id == issue.departmentId
               )}
+              initialShowComment={false}
             />
           ))}
       </ul>
