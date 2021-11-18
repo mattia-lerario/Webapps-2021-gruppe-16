@@ -18,21 +18,30 @@ main {
   display: grid;
   grid-area: auto;
 
-  select {
-    appearance: none;
-    border-radius: 0.5rem;
-    border-color: lightgrey;
-    border-width: 0.15rem;
-    padding: 0.3rem;
-    margin: 0.5rem;
 
-  }
   #issuesTitle{
     grid-column: 1;
+    padding:0%;
   }
 
   #issuesFilters{
     grid-column: 2;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding:0%;
+    select {
+      display: inline-flex;
+      flex: auto;
+      appearance: none;
+      border-radius: 0.5rem;
+      border-color: lightgrey;
+      border-width: 0.15rem;
+      padding: 0.3rem;
+      margin: 0.5rem;
+      margin-left: auto;
+  
+    }
+
   }
   }
 
