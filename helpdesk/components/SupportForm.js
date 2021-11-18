@@ -31,7 +31,9 @@ const SupportForm = () => {
 
     if (!validateForm(form)) return console.log('Invalid form') // Invalid form error
 
-    axios.post('/api/issues', form)
+    axios.post('/api/issues', form) // Send form to API to create new issue
+
+    // Redirect user to new issue or issue list
   }
 
   return (

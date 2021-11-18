@@ -26,9 +26,9 @@ const SupportItem = ({ issue: item }) => {
       setShowAddComment(false)
     }
   }
+
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
     setComment({ [name]: value })
-  // handle resolve and remove issue from list
 
   const handleAddComment = (event) => {
     event.preventDefault()
