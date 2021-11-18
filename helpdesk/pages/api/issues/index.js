@@ -7,7 +7,7 @@ export default async function issues(req, res) {
         id: 'desc',
       },
     })
-    return res.status(200).json({ success: true, issues })
+    return res.status(200).json(issues)
   } else if (req.method === 'POST') {
     let department = await prisma.department.findUnique({
       where: {
@@ -27,7 +27,6 @@ export default async function issues(req, res) {
         departmentId: departmentId,
       },
     })
-
     return res.status(200).json(newIssue)
   }
 }

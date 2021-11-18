@@ -21,7 +21,11 @@ const SupportForm = () => {
 
     if (form.description.len > 250) return false // Validate description
 
+<<<<<<< HEAD
     if (!form.title || !form.severity) return false // Validate status & severity
+=======
+    if (!form.title || !form.priority) return false // Validate status & priority
+>>>>>>> api
 
     return true
   }
@@ -31,7 +35,13 @@ const SupportForm = () => {
 
     if (!validateForm(form)) return console.log('Invalid form') // Invalid form error
 
+<<<<<<< HEAD
     axios.post('/api/issues', form)
+=======
+    axios.post('/api/issues', form) // Send form to API to create new issue
+
+    // Redirect user to new issue or issue list
+>>>>>>> api
   }
 
   return (
