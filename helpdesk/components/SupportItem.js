@@ -9,7 +9,7 @@ const SupportItem = ({ issue: item, department }) => {
   const severityMedium = item?.severity === 'medium' ? 'Medium' : null
   const severityLow = item?.severity === 'low' ? 'Lav' : null
 
-  // STATE AND HANDLERS FOR SHOWING COMMENT & ADD COMMENT SECTION
+  // STATE AND HANDLERS FOR COMMENTS
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState({
     comment: '',
@@ -20,7 +20,7 @@ const SupportItem = ({ issue: item, department }) => {
   const handleShowComments = () => setShowComments(!showComments)
   const handleShowAddComment = () => setShowAddComment(!showAddComment)
 
-  // FETCH COMMENTS
+  // FETCH COMMENTS WHEN COMPONENT LOADS
   useEffect(async () => {
     const temp = []
     const response = await axios.get('/api/comments')
@@ -37,33 +37,38 @@ const SupportItem = ({ issue: item, department }) => {
     }
   }, [])
 
+  // HANDLE NEW COMMENT
   const handleInputOnChange = ({ currentTarget: { name, value } }) =>
     setNewComment({ ...newComment, [name]: value })
 
+  // HANDLE CREATING NEW COMMENT AND ADDING TO ISSUE
   const handleAddComment = async (event) => {
     event.preventDefault()
 
-    // Make new comment through API
+    // Create new comment entry via api
     const response = await axios.post('/api/comments', newComment)
-
-    // Add comment to issue state
     setComments([...comments, response.data])
 
-    // 4. Clear states
+    // Add new comment to issue and reset forms
     setNewComment({ ...newComment, comment: '' })
     setShowAddComment(false)
     setShowComments(true)
   }
 
+  // FORMAT VALUES
   const date = item?.createdAt
   const formatedDate = new Date(date).toLocaleDateString()
+  const departmentName =
+    department?.name.charAt(0).toUpperCase() + department?.name.slice(1)
 
-  return (
+  return !(item && department) ? (
+    <p>Loading...</p>
+  ) : (
     <>
       {/* SHOW ISSUE INFORMATION */}
       <li className="issue">
         <div className="meta">
-          <span>{department?.name}</span>
+          <span>{departmentName}</span>
           <span>{severityHigh ?? severityMedium ?? severityLow}</span>
         </div>
         <h3>

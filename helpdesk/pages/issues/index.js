@@ -26,7 +26,9 @@ export default function Issues() {
     }
   }, [])
 
-  return (
+  return !(issues && departments) ? (
+    <h1>Loading...</h1>
+  ) : (
     <main>
       <SupportList issues={issues} departments={departments} />
     </main>

@@ -7,7 +7,7 @@ const SupportList = ({ issues, departments }) => {
     department: '',
   })
 
-  return !issues ? (
+  return !(issues && departments) ? (
     <p>Loading</p>
   ) : (
     <section className="issues">
@@ -39,8 +39,8 @@ const SupportList = ({ issues, departments }) => {
             <option value="">Alle</option>
             {departments?.map((department) => {
               return (
-                <option key={department.name} value={department.id}>
-                  {department.name}
+                <option key={department?.name} value={department?.id}>
+                  {department?.name}
                 </option>
               )
             })}
