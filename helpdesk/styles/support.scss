@@ -133,6 +133,7 @@ main {
     &_description {
       margin: 0.5rem 0 0 0;
       color: var(--font-color-40);
+      white-space: pre-wrap;
     }
   
     &_creator {
