@@ -24,42 +24,46 @@ main {
     margin-top: auto;
     margin-bottom: auto;
   }
-}
 
-#issuesFilters{
-  grid-column: 2;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: auto;
-}
-.issuesSelect {
-  display: inline-flex;
-  flex: auto;
-  select{
-    width: 8rem;
-    appearance: none;
-    border-radius: 0.5rem;
-    border-color: lightgrey;
-    border-width: 0.15rem;
-    padding: 0.3rem;
-    margin: 0.5rem;
+  #issuesFilters{
+    grid-column: 2;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    display: inline-flex;
+    flex: auto;
+
+    select{
+      width: 8rem;
+      appearance: none;
+      border-radius: 0.5rem;
+      border-color: lightgrey;
+      border-width: 0.12rem;
+      padding: 0.3rem;
+      margin: 0.5rem;
+    }
+    .arrow{
+      content: none;
+      text-align:none;
+      position: relative;
+      left: auto;
+      right: 1.5rem;
+      margin-top: auto;
+      margin-bottom: auto;
+    
+      background-color: grey;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+      width: 0.6rem;
+      height: 0.5rem
+      
+      }
   }
-
-
-}
-.arrow{
-  position: relative;
-  left: auto;
-  right: 1.5rem;
-  top:auto;
-  bottom:0.08rem;
-
-  background-color: black;
-  clip-path: polygon(50% 100%, 0 0, 100% 0);
-  width: 0.5rem;
-  height: 0.5rem
   
-  }
+}
+
+
+
+
 
 
 

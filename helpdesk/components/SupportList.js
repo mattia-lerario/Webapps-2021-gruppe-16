@@ -16,7 +16,7 @@ const SupportList = ({ issues, departments }) => {
           <h2>Henvendelser</h2>
         </div>
         <div id="issuesFilters">
-          <div class="issuesSelect">
+
           <select
             name="severity"
             defaultValue={''}
@@ -24,15 +24,14 @@ const SupportList = ({ issues, departments }) => {
               setFilters({ ...filters, severity: e.target.value })
             }
           >
-            <option value="">Alle</option>
+            <option value="">Viktighet</option>
             <option value="low">Lav</option>
             <option value="medium">Medium</option>
             <option value="high">Høy</option>
           </select>
           <p class="arrow"></p>
-          </div>
 
-          <div class="issuesSelect">  
+
           <select
             name="department"
             defaultValue={''}
@@ -40,7 +39,7 @@ const SupportList = ({ issues, departments }) => {
               setFilters({ ...filters, department: e.target.value })
             }
           >
-            <option value="">Alle</option>
+            <option value="">Avdeling</option>
             {departments?.map((department) => {
               return (
                 <option key={department?.name} value={department?.id}>
@@ -50,7 +49,7 @@ const SupportList = ({ issues, departments }) => {
             })}
           </select>
           <p class="arrow"></p>
-          </div>
+
         </div>
       </div>
 
