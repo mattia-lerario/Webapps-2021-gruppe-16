@@ -1,7 +1,7 @@
 import User from './User'
 import { useState } from 'react'
 import axios from 'axios'
-
+import {calendarItem} from './calendarItem'
 const Calendar = (props) => {
   const [chosenDate, setChosenDate] = useState('')
   const [selectedDate, setSelectedDate] = useState(false)
@@ -59,5 +59,12 @@ const Calendar = (props) => {
         alert('Error logging in')
       })
   }
+
+  return (
+
+    <calendarItem></calendarItem>
+  )
+
+
 }
 export default Calendar

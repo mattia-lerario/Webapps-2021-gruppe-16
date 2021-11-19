@@ -1,5 +1,3 @@
-//create component for a single calendar day card
-
 import React from 'react'
 
 class CalendarItem extends React.Component {
@@ -7,11 +5,7 @@ class CalendarItem extends React.Component {
     super(props)
     this.state = {
       day: this.props.day,
-      month: this.props.month,
-      year: this.props.year,
       dayOfWeek: this.props.dayOfWeek,
-      dayOfMonth: this.props.dayOfMonth,
-      isCurrentMonth: this.props.isCurrentMonth,
       isSelected: this.props.isSelected,
       isToday: this.props.isToday,
       isHovered: false,
