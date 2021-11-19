@@ -111,15 +111,6 @@ const SupportItem = ({ issue: item, department, initialShowComment }) => {
           </footer>
         </section>
 
-        {/* SHOW COMMENTS SECTION */}
-        {showComments && comments.length > 0 && (
-          <section className="issue_comments">
-            {comments?.map((comment) => (
-              <SupportComment key={comment.id} comment={comment} />
-            ))}
-          </section>
-        )}
-
         {/* SHOW ADD COMMENT SECTION */}
         {showAddComment && (
           <section className="issue_add">
@@ -152,6 +143,15 @@ const SupportItem = ({ issue: item, department, initialShowComment }) => {
                 </button>
               </footer>
             </form>
+          </section>
+        )}
+
+        {/* SHOW COMMENTS SECTION */}
+        {showComments && comments.length > 0 && (
+          <section className="issue_comments">
+            {comments?.map((comment) => (
+              <SupportComment key={comment.id} comment={comment} />
+            ))}
           </section>
         )}
       </li>
