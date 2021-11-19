@@ -21,30 +21,51 @@ main {
 
   #issuesTitle{
     grid-column: 1;
-  }
-
-  #issuesFilters{
-    grid-column: 2;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: auto;
-    margin-right: 0px;
-    
-    select {
-      display: inline-flex;
-      flex: auto;
-      appearance: none;
-      border-radius: 0.5rem;
-      border-color: lightgrey;
-      border-width: 0.15rem;
-      padding: 0.3rem;
-      margin: 0.5rem;
+  }
+}
+
+#issuesFilters{
+  grid-column: 2;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+}
+.issuesSelect {
+  display: inline-flex;
+  flex: auto;
+  select{
+    width: 8rem;
+    appearance: none;
+    border-radius: 0.5rem;
+    border-color: lightgrey;
+    border-width: 0.15rem;
+    padding: 0.3rem;
+    margin: 0.5rem;
+  }
+
+
+}
+.arrow{
+  position: relative;
+  left: auto;
+  right: 1.5rem;
+  top:auto;
+  bottom:0.08rem;
+
+  background-color: black;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  width: 0.5rem;
+  height: 0.5rem
+  
+  }
+
+
+
 
   
-    }
 
-  }
-  }
 
   ul {
     list-style: none;

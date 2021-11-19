@@ -16,6 +16,7 @@ const SupportList = ({ issues, departments }) => {
           <h2>Henvendelser</h2>
         </div>
         <div id="issuesFilters">
+          <div class="issuesSelect">
           <select
             name="severity"
             defaultValue={''}
@@ -28,7 +29,10 @@ const SupportList = ({ issues, departments }) => {
             <option value="medium">Medium</option>
             <option value="high">Høy</option>
           </select>
+          <p class="arrow"></p>
+          </div>
 
+          <div class="issuesSelect">  
           <select
             name="department"
             defaultValue={''}
@@ -45,6 +49,8 @@ const SupportList = ({ issues, departments }) => {
               )
             })}
           </select>
+          <p class="arrow"></p>
+          </div>
         </div>
       </div>
 
