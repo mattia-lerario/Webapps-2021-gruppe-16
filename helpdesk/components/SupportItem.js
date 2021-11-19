@@ -24,6 +24,7 @@ const SupportItem = ({ issue: item }) => {
     if (showIssue === false) {
       setShowComments(false)
       setShowAddComment(false)
+      setShowIssue(false)
     }
   }
 

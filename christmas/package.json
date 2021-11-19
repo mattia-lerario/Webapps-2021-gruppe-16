@@ -44,7 +44,6 @@
     "jest": "^27.3.1",
     "jest-mock-extended": "^2.0.4",
     "msw": "^0.35.0",
-    "next-page-tester": "^0.30.0",
     "node-mocks-http": "^1.11.0",
     "prettier": "^2.4.1",
     "prisma": "^3.3.0",
