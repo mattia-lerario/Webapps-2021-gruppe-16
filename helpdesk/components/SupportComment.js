@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 export const SupportComment = ({ comment }) => {
   const date = comment?.createdAt
   const formatedDate = new Date(date).toLocaleDateString()

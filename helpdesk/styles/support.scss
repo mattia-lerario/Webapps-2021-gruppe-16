@@ -23,8 +23,25 @@
 
 // VARIOUS
 main {
-  margin: 1rem auto;
+  margin: 4rem auto;
   max-width: 640px;
+}
+
+// NAVIGATION
+.navigation {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  justify-content: center;
+  background-color: var(--font-color-100);
+  gap: var(--gap-large);
+  border-bottom: var(--border-issue);
+  padding: 1rem;
+
+  a {
+    @extend .issue_add_submit;
+  }
 }
 
 // SUPPORT FORM
@@ -245,19 +262,5 @@ main {
   &_date {
     @extend .issue_main_date;
     margin: 1rem 0 0 0;
-  }
-}
-
-// SINGLE ISSUE-VIEW PAGE
-.navigation {
-  display: flex;
-  justify-content: center;
-  gap: var(--gap-large);
-  background-color: var(--font-color-85);
-  border-bottom: var(--border-comment);
-  padding: 1rem;
-
-  a {
-    @extend .issue_add_submit;
   }
 }

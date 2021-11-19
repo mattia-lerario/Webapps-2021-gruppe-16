@@ -2,7 +2,6 @@ import SupportItem from '@/components/SupportItem'
 import { useRouter } from 'next/dist/client/router'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Navigation from '@/components/Navigation'
 
 export default function Issue() {
   // ROUTER FOR ISSUE ID
