@@ -37,7 +37,7 @@ const SupportForm = () => {
   }
 
   return (
-    <form className="support_form" onSubmit={handleSendSupport}>
+    <form className="support" onSubmit={handleSendSupport}>
       <h2>Ny henvendelse</h2>
       <div>
         <label htmlFor="title">Tittel</label>

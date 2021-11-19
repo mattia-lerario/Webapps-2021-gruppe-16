@@ -5,10 +5,10 @@ export const SupportComment = ({ comment }) => {
   const formatedDate = new Date(date).toLocaleDateString()
 
   return (
-    <div className="issue_comment">
-      <h5>Kommentar {comment?.id}</h5>
-      <p>{comment?.comment}</p>
-      <p className="issue_comment_date">Posted at: {formatedDate}</p>
+    <div className="comment">
+      <h5 className="comment_title">Kommentar {comment?.id}</h5>
+      <p className="comment_description">{comment?.comment}</p>
+      <p className="comment_date">Posted at: {formatedDate}</p>
     </div>
   )
 }

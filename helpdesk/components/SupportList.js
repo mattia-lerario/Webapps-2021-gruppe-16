@@ -8,21 +8,24 @@ const SupportList = ({ issues, departments }) => {
   })
 
   return !(issues && departments) ? (
-    <p>Loading</p>
+    ''
   ) : (
     <section className="issues">
-      <div id="issuesHeader">
-        <div id="issuesTitle">
+      <div className="issues_header">
+        <div className="issues_title">
           <h2>Henvendelser</h2>
         </div>
-        <div id="issuesFilters">
+        <div className="issues_filters">
           <select
             name="severity"
-            defaultValue={''}
+            defaultValue={'default'}
             onChange={(e) =>
               setFilters({ ...filters, severity: e.target.value })
             }
           >
+            <option value="default" disabled hidden>
+              Viktighet
+            </option>
             <option value="">Alle</option>
             <option value="low">Lav</option>
             <option value="medium">Medium</option>
@@ -31,11 +34,14 @@ const SupportList = ({ issues, departments }) => {
 
           <select
             name="department"
-            defaultValue={''}
+            defaultValue={'default'}
             onChange={(e) =>
               setFilters({ ...filters, department: e.target.value })
             }
           >
+            <option value="default" disabled hidden>
+              Avdeling
+            </option>
             <option value="">Alle</option>
             {departments?.map((department) => {
               return (
@@ -48,7 +54,7 @@ const SupportList = ({ issues, departments }) => {
         </div>
       </div>
 
-      <ul>
+      <ul className="issues_list">
         {issues
           .filter(
             (issue) =>

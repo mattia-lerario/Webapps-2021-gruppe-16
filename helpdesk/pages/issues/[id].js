@@ -28,7 +28,7 @@ export default function Issue() {
   }, [])
 
   return !(issue && departments) ? (
-    <p>loading...</p>
+    ''
   ) : (
     <main>
       <SupportItem

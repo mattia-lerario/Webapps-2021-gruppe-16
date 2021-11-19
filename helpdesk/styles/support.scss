@@ -1,9 +1,34 @@
+:root {
+  --severity-high: firebrick;
+  --severity-medium: gold;
+  --severity-low: limegreen;
+  --font-bold: 500;
+  --font-bolder: 600;
+  --font-color-0: hsl(0, 0%, 0%);
+  --font-color-40: hsl(0, 0%, 40%);
+  --font-color-60: hsl(0, 0%, 60%);
+  --font-color-85: hsl(0, 0%, 85%);
+  --font-color-100: hsl(0, 0%, 100%);
+  --font-color-link: hsl(196, 64%, 48%);
+  --font-size-large: 1.25rem;
+  --font-size-regular: 1rem;
+  --font-size-small: 0.85rem;
+  --font-size-tiny: 0.7rem;
+  --border-issue: 1px solid var(--font-color-85);
+  --border-comment: 1px solid var(--font-color-0);
+  --gap-large: 2rem;
+  --gap-regular: 1rem;
+  --gap-small: 0.5rem;
+}
+
+// 
 main {
   margin: 0 auto;
   max-width: 640px;
 }
 
-.support_form {
+// SUPPORT FORM
+.support {
   div {
     margin-bottom: 1rem;
   }
@@ -13,110 +38,209 @@ main {
   }
 }
 
+// ISSUES
 .issues {
-  #issuesHeader{
-  display: grid;
-  grid-area: auto;
-
-
-  #issuesTitle{
-    grid-column: 1;
+  &_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  #issuesFilters{
-    grid-column: 2;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: 0px;
-    
+  &_filters {
     select {
-      display: inline-flex;
-      flex: auto;
-      appearance: none;
-      border-radius: 0.5rem;
-      border-color: lightgrey;
-      border-width: 0.15rem;
-      padding: 0.3rem;
       margin: 0.5rem;
-
-  
+      background-color: transparent;
+      color: var(--font-color-40);
+      border: var(--border-issue);
+      border-radius: 0.25rem;
+      padding: 0.25rem 2rem 0.25rem 0.5rem;
     }
-
+    select:last-of-type {
+      padding: 0.25rem 4rem 0.25rem 0.5rem;
+    }
+    // ----------------------------------------------
+    // https://stackoverflow.com/questions/56593500/change-the-dropdown-arrow-design
+    select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+      background-repeat: no-repeat, repeat;
+      background-position: right .7em top 50%, 0 0;
+      background-size: .65em auto, 100%;
+    }
+    select::-ms-expand {
+      display: none;
+    }
+    // ----------------------------------------------
   }
-  }
 
-  ul {
+  &_list {
     list-style: none;
+    display: grid;
+    gap: var(--gap-large);
+
+    .issue_main_title:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
-
-
-
 }
 
 .issue {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 1rem;
-  border: 1px solid #ccc;
-  padding: 1rem;
-  border-radius: 1rem;
+  display: grid;
+  gap: var(--gap-small);
 
-  h3 {
+  &_main {
+    border: var(--border-issue);
+    padding: 1rem;
+    border-radius: 1rem;
+
+    &_header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    &_department {
+      color: var(--font-color-60);
+      font-size: var(--font-size-small);
+    }
+  
+    &_severity {
+      @extend .issue_main_header;
+      font-size: var(--font-size-small);
+      font-weight: var(--font-bold);
+  
+      &_high {
+        color: var(--severity-high);
+      }
+      &_medium {
+        color: var(--severity-medium);
+      }
+      &_low {
+        color: var(--severity-low);
+      }
+      &_dot {
+        font-size: var(--font-size-large);
+      }
+    }
+    
+    &_title {
+      margin: 1rem 0 0 0;
+    }
+  
+    &_description {
+      margin: 0.5rem 0 0 0;
+      color: var(--font-color-40);
+    }
+  
+    &_creator {
+      color: var(--font-color-60);
+      font-size: var(--font-size-small);
+      margin: 0.5rem 0 0 0;
+    }
+  
+    &_date {
+      color: var(--font-color-60);
+      font-size: var(--font-size-tiny);
+      margin: 0;
+    }
+
+    &_footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1.5rem 0 0 0;
+    }
+
+    &_actions {
+      display: flex;
+      gap: var(--gap-large);
+      font-size: var(--font-size-small);
+      font-weight: var(--font-bold);
+  
+      a {
+        color: var(--font-color-0);
+        text-decoration: underline;
+      }
+      a:hover {
+        color: var(--font-color-link);
+        cursor: pointer;
+      }
+    }
+  }
+
+  &_comments {
+    display: grid;
+    gap: var(--gap-small);
+  }
+    
+  &_add {
+    @extend .comment;
+
+    &_header {
+      @extend .issue_main_header;
+    }
+
+    &_title {
+      @extend .comment_title;
+    }
+
+    &_comment {
+      @extend .comment_description;
+      height: 4rem;
+      width: 100%;
+      resize: none;
+      border: none;
+      outline: none;
+      overflow-y: hidden;
+    }
+
+    &_close {
+      color: var(--font-color-0);
+      font-weight: var(--font-bolder);
+    }
+    &_close:hover {
+      color: var(--font-color-link);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    &_footer {
+      margin: 0;
+      justify-content: right;
+    }
+
+    // Messy. Apparently buttons behave very differently from <a> tags.
+    &_submit {
+      @extend .issue_add_close;
+      margin: 0;
+      padding: 0;
+      outline: 0;
+      border: 0;
+      text-decoration: underline;
+      background-color: transparent;
+      font-weight: var(--font-bolder);
+    }
+  }
+}
+
+.comment {
+  @extend .issue_main;
+  border: var(--border-comment);
+
+  &_title {
     margin: 0;
   }
 
-  .meta {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 0;
-    
-    span {
-      border: 1px solid #000;
-      padding: 0.3rem;
-    }
+  &_description {
+    @extend .issue_main_description;
+    overflow-wrap: anywhere;
   }
 
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-  }
-
-  .issue_actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-  
-  &_comment {
-    @extend .issue;
-    border: 1px solid #000;
-
-    h5 {
-      margin: 0.5rem 0;
-    }
-    p {
-      margin: 0.5rem 0;
-      overflow-wrap: anywhere;
-    }
-
-    &_add {
-      @extend .issue_comment;
-      color: red;
-
-      textarea {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        height: 4rem;
-        width: 100%;
-        resize: none;
-        border: none;
-        outline: none;
-        overflow-y: auto;
-      }
-    }
+  &_date {
+    @extend .issue_main_date;
+    margin: 1.5rem 0 0 0;
   }
 }
