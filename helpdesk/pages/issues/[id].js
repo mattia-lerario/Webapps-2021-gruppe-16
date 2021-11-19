@@ -2,6 +2,7 @@ import SupportItem from '@/components/SupportItem'
 import { useRouter } from 'next/dist/client/router'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Navigation from '@/components/Navigation'
 
 export default function Issue() {
   // ROUTER FOR ISSUE ID
@@ -26,6 +27,9 @@ export default function Issue() {
     setDepartments(response?.data.map((department) => department))
     return () => {} // Cleanup
   }, [])
+
+  // HANDLE GOING BACK
+  const handleClick = () => router.push('/issues')
 
   return !(issue && departments) ? (
     ''

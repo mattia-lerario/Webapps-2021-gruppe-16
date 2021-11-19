@@ -21,9 +21,9 @@
   --gap-small: 0.5rem;
 }
 
-// 
+// VARIOUS
 main {
-  margin: 0 auto;
+  margin: 1rem auto;
   max-width: 640px;
 }
 
@@ -38,7 +38,7 @@ main {
   }
 }
 
-// ISSUES
+// SUPPORTLIST (ISSUES) COMPONENT
 .issues {
   &_header {
     display: flex;
@@ -87,6 +87,7 @@ main {
   }
 }
 
+// SUPPORTITEM (ISSUE) COMPONENT
 .issue {
   display: grid;
   gap: var(--gap-small);
@@ -227,6 +228,7 @@ main {
   }
 }
 
+// SUPPORTCOMMENT (COMMENT) COMPONENT
 .comment {
   @extend .issue_main;
   border: var(--border-comment);
@@ -242,6 +244,20 @@ main {
 
   &_date {
     @extend .issue_main_date;
-    margin: 1.5rem 0 0 0;
+    margin: 1rem 0 0 0;
+  }
+}
+
+// SINGLE ISSUE-VIEW PAGE
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-large);
+  background-color: var(--font-color-85);
+  border-bottom: var(--border-comment);
+  padding: 1rem;
+
+  a {
+    @extend .issue_add_submit;
   }
 }
