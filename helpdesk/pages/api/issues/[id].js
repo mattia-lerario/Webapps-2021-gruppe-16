@@ -1,5 +1,4 @@
 import prisma from '@/lib/clients/db'
-import { rest } from 'msw'
 
 export default async function singleissue(req, res) {
   const { id } = req.query
