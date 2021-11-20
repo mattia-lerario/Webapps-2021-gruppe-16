@@ -1,7 +1,7 @@
 import SupportItem from './SupportItem'
 import { useState } from 'react'
 
-const SupportList = ({ issues, departments }) => {
+const SupportList = ({ issues, handleResolve, departments }) => {
   const [filters, setFilters] = useState({
     severity: '',
     department: '',
@@ -69,6 +69,7 @@ const SupportList = ({ issues, departments }) => {
             <SupportItem
               key={issue.id}
               issue={issue}
+              handleResolve={handleResolve}
               department={departments.find(
                 (dept) => dept.id == issue.departmentId
               )}

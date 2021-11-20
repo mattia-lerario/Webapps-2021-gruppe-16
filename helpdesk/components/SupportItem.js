@@ -4,15 +4,14 @@ import { useState, useEffect } from 'react'
 import SupportComment from './SupportComment'
 import axios from 'axios'
 
-const SupportItem = ({ issue: item, department, initialShowComment }) => {
+const SupportItem = ({
+  issue: item,
+  handleResolve,
+  department,
+  initialShowComment,
+}) => {
   // ROUTER
   const router = useRouter()
-
-  // SEVERITY OPTIONS
-  const severityHigh = item?.severity === 'high' ? 'Høy' : null
-  const severityMedium = item?.severity === 'medium' ? 'Medium' : null
-  const severityLow = item?.severity === 'low' ? 'Lav' : null
-  const severityColor = `issue_main_severity issue_main_severity_${item?.severity}`
 
   // STATE AND HANDLERS FOR COMMENTS
   const [comments, setComments] = useState([])
@@ -22,7 +21,8 @@ const SupportItem = ({ issue: item, department, initialShowComment }) => {
   })
   const [showComments, setShowComments] = useState(initialShowComment)
   const [showAddComment, setShowAddComment] = useState(false)
-  const handleShowComments = () => setShowComments(!showComments)
+  const handleShowComments = () =>
+    comments.length > 0 && setShowComments(!showComments)
   const handleShowAddComment = () => setShowAddComment(!showAddComment)
 
   // FETCH COMMENTS WHEN COMPONENT LOADS
@@ -37,9 +37,7 @@ const SupportItem = ({ issue: item, department, initialShowComment }) => {
     })
     setComments(temp)
 
-    return () => {
-      // cleanup
-    }
+    return () => {} // cleanup
   }, [])
 
   // HANDLE NEW COMMENT
@@ -60,13 +58,26 @@ const SupportItem = ({ issue: item, department, initialShowComment }) => {
     setShowComments(true)
   }
 
+  // HANDLE RESOLVING ISSUE
+  const handleResolveIssue = async (event) => {
+    event.preventDefault()
+
+    if (item.isResolved) return // Don't send if already resolved.
+
+    await axios.put(`/api/issues/${item.id}`, {
+      ...item,
+      isResolved: true,
+    })
+    handleResolve(item.id)
+  }
+
   // HANDLE CLICK TITLE
   const handleTitleClick = (event) => {
     event.preventDefault()
     router.push(`/issues/${item.id}`)
   }
 
-  // Mostly taken from: https://stackoverflow.com/questions/39401504/javascript-react-dynamic-height-textarea-stop-at-a-max
+  // Taken from: https://stackoverflow.com/questions/39401504/javascript-react-dynamic-height-textarea-stop-at-a-max
   const handleAdjustTextArea = (event) => {
     event.target.style.height = 'inherit'
     event.target.style.height = `${event.target.scrollHeight}px`
@@ -78,12 +89,19 @@ const SupportItem = ({ issue: item, department, initialShowComment }) => {
   const departmentName =
     department?.name.charAt(0).toUpperCase() + department?.name.slice(1)
 
+  // SEVERITY OPTIONS
+  const severityHigh = item?.severity === 'high' ? 'Høy' : null
+  const severityMedium = item?.severity === 'medium' ? 'Medium' : null
+  const severityLow = item?.severity === 'low' ? 'Lav' : null
+  const severityColor = `issue_main_severity issue_main_severity_${item?.severity}`
+
   return !(item && department) ? (
     ''
   ) : (
     <>
-      {/* SHOW ISSUE INFORMATION */}
+      {/* CONTAINER FOR ISSUE, COMMENTS, AND NEW COMMENT */}
       <li className="issue">
+        {/* SHOW ISSUE INFORMATION */}
         <section className="issue_main">
           <header className="issue_main_header">
             <span className="issue_main_department">{departmentName}</span>
@@ -100,13 +118,22 @@ const SupportItem = ({ issue: item, department, initialShowComment }) => {
           <footer className="issue_main_footer">
             <p className="issue_main_date">{formatedDate}</p>
             <div className="issue_main_actions">
-              <a type="button" onClick={handleShowComments}>
-                Se kommentarer ({comments ? comments.length : 0})
+              <a
+                type="button"
+                className={showComments ? 'active' : ''}
+                onClick={handleShowComments}
+              >
+                {showComments ? 'Skjul' : 'Se'} kommentarer (
+                {comments ? comments.length : 0})
               </a>
               <a type="button" onClick={handleShowAddComment}>
                 Legg til kommentar
               </a>
-              <a type="button">{item?.isResolved ? '(løst)' : 'Avslutt'}</a>
+              {!item?.isResolved && (
+                <a type="button" onClick={handleResolveIssue}>
+                  Avslutt
+                </a>
+              )}
             </div>
           </footer>
         </section>
