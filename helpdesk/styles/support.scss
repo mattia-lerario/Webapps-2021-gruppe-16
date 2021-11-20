@@ -3,7 +3,7 @@
   --severity-medium: gold;
   --severity-low: limegreen;
   --font-bold: 500;
-  --font-bolder: 600;
+  --font-bold-button: calc(var(--font-bold) + 100);
   --font-color-0: hsl(0, 0%, 0%);
   --font-color-40: hsl(0, 0%, 40%);
   --font-color-60: hsl(0, 0%, 60%);
@@ -225,7 +225,7 @@ main {
 
     &_close {
       color: var(--font-color-0);
-      font-weight: var(--font-bolder);
+      font-weight: var(--font-bold-button);
     }
     &_close:hover {
       color: var(--font-color-link);
@@ -247,7 +247,7 @@ main {
       border: 0;
       text-decoration: underline;
       background-color: transparent;
-      font-weight: var(--font-bolder);
+      font-weight: var(--font-bold-button);
     }
   }
 }
