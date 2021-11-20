@@ -25,7 +25,7 @@ export default async function singleissue(req, res) {
       },
       data: req?.body,
     })
-    if (!updatedIssue) return rest.status(400).json('failed to update issue')
+    if (!updatedIssue) return res.status(400).json('failed to update issue')
 
     return res.status(200).json(updatedIssue)
   }
