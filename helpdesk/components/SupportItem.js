@@ -130,7 +130,11 @@ const SupportItem = ({
                   {comments?.length})
                 </a>
               )}
-              <a type="button" onClick={handleShowAddComment}>
+              <a
+                type="button"
+                className={showAddComment ? 'active' : ''}
+                onClick={handleShowAddComment}
+              >
                 Legg til kommentar
               </a>
               {!item?.isResolved && (
