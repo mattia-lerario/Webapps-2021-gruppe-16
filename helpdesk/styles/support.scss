@@ -103,6 +103,7 @@ main {
     .issue_main_title:hover {
       text-decoration: underline;
       cursor: pointer;
+      color: var(--font-color-link);
     }
   }
 }
