@@ -118,14 +118,18 @@ const SupportItem = ({
           <footer className="issue_main_footer">
             <p className="issue_main_date">{formatedDate}</p>
             <div className="issue_main_actions">
-              <a
-                type="button"
-                className={showComments ? 'active' : ''}
-                onClick={handleShowComments}
-              >
-                {showComments ? 'Skjul' : 'Se'} kommentarer (
-                {comments ? comments.length : 0})
-              </a>
+              {!comments.length > 0 ? (
+                ''
+              ) : (
+                <a
+                  type="button"
+                  className={showComments ? 'active' : ''}
+                  onClick={handleShowComments}
+                >
+                  {showComments ? 'Skjul' : 'Se'} kommentarer (
+                  {comments?.length})
+                </a>
+              )}
               <a type="button" onClick={handleShowAddComment}>
                 Legg til kommentar
               </a>
