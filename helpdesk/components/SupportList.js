@@ -64,7 +64,6 @@ const SupportList = ({ issues, handleResolve, departments }) => {
               (issue.severity == filters.severity &&
                 issue.departmentId == filters.department)
           )
-
           .map((issue) => (
             <SupportItem
               key={issue.id}
