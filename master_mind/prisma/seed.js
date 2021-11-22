@@ -1,12 +1,26 @@
 import { PrismaClient } from '@prisma/client'
-
 const prisma = new PrismaClient()
-
-// Dummydata
 
 async function main() {
   console.log('Start seeding ...')
-  // Kalle på seed funksjoner
+
+  // const colors = [
+  //   { name: 'red' },
+  //   { name: 'green' },
+  //   { name: 'blue' },
+  //   { name: 'yellow' },
+  //   { name: 'orange' },
+  //   { name: 'pink' },
+  //   { name: 'cyan' },
+  //   { name: 'gray' },
+  // ]
+
+  // for (const color of colors) {
+  //   await prisma.color.create({
+  //     data: color,
+  //   })
+  // }
+
   console.log('Seeding finished.')
 }
 
