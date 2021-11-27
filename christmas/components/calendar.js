@@ -1,12 +1,12 @@
 import User from './User'
 import { useState } from 'react'
 import axios from 'axios'
-import {calendarItem} from './calendarItem'
+import { calendarItem } from './CalendarItem'
 const Calendar = (props) => {
   const [chosenDate, setChosenDate] = useState('')
   const [selectedDate, setSelectedDate] = useState(false)
   const [selectedDates, setSelectedDates] = useState([])
-  const [user, setUser] = useState(new User())
+  const [user, setUser] = useState()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   //create a function to handle the date selection
@@ -60,11 +60,6 @@ const Calendar = (props) => {
       })
   }
 
-  return (
-
-    <calendarItem></calendarItem>
-  )
-
-
+  return <calendarItem></calendarItem>
 }
 export default Calendar
