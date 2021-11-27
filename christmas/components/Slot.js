@@ -1,8 +1,10 @@
 import React from 'react'
-
-const CalendarItem = () => {
+import { useState } from 'react'
+const Slot = (id, date, userInfo) => {
+  const [isOpen, setIsOpen] = useState(true)
+  let [cardColor, setCardColor] = useState('')
   //get all users
-  let cardColor = 'card-close'
+
   const users = [
     {
       id: 1,
@@ -12,7 +14,10 @@ const CalendarItem = () => {
 
   const openCard = () => {
     //open card and change cardColor to green
-    cardColor = 'card-open'
+    const cardClose = 'card-close'
+
+    setIsOpen(true)
+    setCardColor(cardClose)
   }
 
   // return a calendar item that loops 24 times and displays the current date
@@ -40,7 +45,7 @@ const CalendarItem = () => {
               </p>
               <div className="row">
                 <div className="col-6">
-                  <p className="card-text">
+                  <div className="card-text">
                     {users.map((user) => {
                       return (
                         <div key={user.id}>
@@ -48,11 +53,14 @@ const CalendarItem = () => {
                         </div>
                       )
                     })}
-                  </p>
+                  </div>
                 </div>
                 <div className="col-6">
                   <p className="card-text">
-                    <button className="btn btn-primary" onClick={openCard()}>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => openCard()}
+                    >
                       OPEN
                     </button>
                   </p>
@@ -66,4 +74,4 @@ const CalendarItem = () => {
   )
 }
 
-export default CalendarItem
+export default Slot
