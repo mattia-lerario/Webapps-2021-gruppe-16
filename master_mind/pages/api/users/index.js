@@ -7,10 +7,5 @@ export default async function handler(req, res) {
   // Du kan kopiere denne linjen til dere du måtte trenge den
   // Trenger den for å knytte brukeren som spiller til spillet
   const user = await getUserFromCookie(req)
-
-  if (user) {
-    console.log(user)
-  }
-
   res.status(200).json(user)
 }

@@ -135,7 +135,7 @@ const GameProvider = ({ children }) => {
     const registerGame = async () => {
       // GET USER
       const user = await axios.get('/api/users')
-      if (!user.status === 200) return
+      if (!user.status === 200) return console.log('Failed to get user')
 
       // GET RANDOM COMBINATION
       // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array/46545530#46545530
@@ -143,13 +143,15 @@ const GameProvider = ({ children }) => {
         .map((a) => ({ sort: Math.random(), value: a }))
         .sort((a, b) => a.sort - b.sort)
         .map((a) => a.value)
-        .slice(0, 4)
+        .slice(0, 4) // Get 4 items
 
       // CREATE GAME
       const game = await axios.post('/api/games', {
         user: user.data,
         combination: combination.map((color) => color).join(' '),
       })
+
+      console.log(combination)
 
       dispatch({
         type: 'set_game',
