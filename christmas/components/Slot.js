@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 const Slot = (id, date, userInfo) => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [status, setStatus] = useState('')
   let [cardStatus, setCardStatus] = useState('')
 
   const [slots, setSlots] = useState([])
@@ -31,14 +31,14 @@ const Slot = (id, date, userInfo) => {
     },
   ]
 
-  const openCard = () => {
+  const openCard = (card) => {
     //open card for specific user and set status
-    if (isOpen) {
+    if (card.status === '') {
       setCardStatus('card-open')
-      setIsOpen(false)
+      setStatus('open')
     } else {
       setCardStatus('card-closed')
-      setIsOpen(true)
+      setStatus('closed')
     }
   }
 
@@ -89,18 +89,13 @@ const Slot = (id, date, userInfo) => {
 
   return (
     <div className="calendar-Grid">
-      {slots.map((e, i) => {
+      {slots.map((e, slot) => {
         //set date to start first december of the year 2021
         const date = new Date(2021, 11, 1, 0, 0, 0, 0)
-        date.setDate(date.getDate() + i)
+        date.setDate(date.getDate() + slot)
         return (
           // return a calendar card box with the current date and time
-          <div
-            className={`card-body ${cardStatus}`}
-            onClick={createCard}
-            key={i}
-            id={i}
-          >
+          <div className={`${cardStatus}`} onClick={createCard} key={slot.id}>
             <div className="card">
               <h5 className="card-title date">
                 {date.toLocaleString('en-US', { month: 'long' })}{' '}
@@ -113,8 +108,8 @@ const Slot = (id, date, userInfo) => {
                     <div className="card-text">
                       {users.map((user) => {
                         return (
-                          <div key={user.code}>
-                            <p>{user.name}</p>
+                          <div key={user.id}>
+                            <p>{user.cardSlots.newCard}</p>
                           </div>
                         )
                       })}
