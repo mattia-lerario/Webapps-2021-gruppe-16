@@ -1,11 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 const Slot = (id, date, userInfo) => {
-  const [status, setStatus] = useState('')
-  let [cardStatus, setCardStatus] = useState('')
-
   const [slots, setSlots] = useState([])
+  const [status, setStatus] = useState('')
 
+  const openCard = () => {
+    //open card for specific user and set status
+
+    setStatus('open')
+  }
   //generate slots array with 24 items
   useEffect(() => {
     let arr = []
@@ -31,18 +34,7 @@ const Slot = (id, date, userInfo) => {
     },
   ]
 
-  const openCard = (card) => {
-    //open card for specific user and set status
-    if (card.status === '') {
-      setCardStatus('card-open')
-      setStatus('open')
-    } else {
-      setCardStatus('card-closed')
-      setStatus('closed')
-    }
-  }
-
-  //create function that returns a string with 4 random numbers and 4 random letters the code must be unique
+  //function that returns a string with 4 random numbers and 4 random letters the code must be unique
   const generateCode = () => {
     let code = ''
 
@@ -70,7 +62,7 @@ const Slot = (id, date, userInfo) => {
     }
   }
 
-  const createCard = (id) => {
+  const createCard = async () => {
     //create card for user
     let date = new Date()
     let code = createCode()
@@ -81,8 +73,9 @@ const Slot = (id, date, userInfo) => {
       code: code,
     }
     users[0].cardSlots.push(newCard)
-    openCard(id)
-    console.log(users[0].cardSlots)
+    openCard()
+    console.log(users[0].cardSlots.newCard)
+    console.log(users)
   }
 
   // return a calendar item that loops 24 times and displays the current date
@@ -95,14 +88,14 @@ const Slot = (id, date, userInfo) => {
         date.setDate(date.getDate() + slot)
         return (
           // return a calendar card box with the current date and time
-          <div className={`${cardStatus}`} onClick={createCard} key={slot.id}>
+          <div className={`card-${status}`} onClick={createCard} key={id}>
             <div className="card">
               <h5 className="card-title date">
                 {date.toLocaleString('en-US', { month: 'long' })}{' '}
                 {date.getDate()}
               </h5>
 
-              <div className={`card-content ${cardStatus}`}>
+              <div className={`card-content`}>
                 <div className="row">
                   <div className="col-6">
                     <div className="card-text">
