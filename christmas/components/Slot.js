@@ -7,9 +7,7 @@ const Slot = (date, userInfo) => {
     slots: [],
   })
   const [status, setStatus] = useState('')
-  const [user, setUser] = useState({
-    user: userInfo,
-  })
+  const [user, setUser] = useState(userInfo)
 
   const openCard = () => {
     //open card for specific user and set status
@@ -25,6 +23,7 @@ const Slot = (date, userInfo) => {
       const data = await response.data
       setSlots(data)
       console.log(slots, 'slots')
+      return data
     }
     const useUser = async () => {
       const response = await axios.get('/api/users')
@@ -32,6 +31,7 @@ const Slot = (date, userInfo) => {
       const data = await response.data
       setUser(data)
       console.log(userInfo, 'userInfo')
+      return data
     }
     useUser()
     fetchSlots()
@@ -50,7 +50,7 @@ const Slot = (date, userInfo) => {
     {
       id: 1,
       name: 'John Doe',
-      cardSlots: [
+      userSlots: [
         {
           id: 1,
           date: '2020-12-12',
@@ -79,8 +79,7 @@ const Slot = (date, userInfo) => {
     //check if code is unique
     if (
       users.find(
-        (user) =>
-          user.cardSlots.find((slot) => slot.code === code) === undefined
+        (user) => user.find((slot) => slot.code === code) === undefined
       )
     ) {
       return code
@@ -89,7 +88,7 @@ const Slot = (date, userInfo) => {
     }
   }
 
-  const createCard = async () => {
+  const createUserSlot = async () => {
     //create card for user
     let date = new Date()
     let code = createCode()
