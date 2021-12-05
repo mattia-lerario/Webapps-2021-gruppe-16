@@ -1,5 +1,6 @@
 import Slot from '@/components/Slot'
 import AdminDashboard from '@/components/AdminDashboard'
+<<<<<<< HEAD
 import Calendar from '@/components/Calendar'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -18,6 +19,9 @@ export default function Home() {
     fetchSlots()
   }, [])*/
 
+=======
+export default function Home() {
+>>>>>>> parent of c79d1f7 (Added APi for Slots and Calendars.)
   return (
     <div>
       <h1>Julekalender eksamen 2021</h1>
