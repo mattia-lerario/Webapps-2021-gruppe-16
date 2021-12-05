@@ -1,8 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-const Slot = (id, date, userInfo) => {
-  const [slots, setSlots] = useState([])
+import axios from 'axios'
+const Slot = (date, userInfo) => {
+  //set slots data based on data from useEffect hook
+  const [slots, setSlots] = useState({
+    slots: [],
+  })
   const [status, setStatus] = useState('')
+  const [user, setUser] = useState({
+    user: userInfo,
+  })
 
   const openCard = () => {
     //open card for specific user and set status
@@ -10,13 +17,33 @@ const Slot = (id, date, userInfo) => {
     setStatus('open')
   }
   //generate slots array with 24 items
+
   useEffect(() => {
+    const fetchSlots = async () => {
+      const response = await axios.get('/api/slots')
+      console.log(response.data, 'response')
+      const data = await response.data
+      setSlots(data)
+      console.log(slots, 'slots')
+    }
+    const useUser = async () => {
+      const response = await axios.get('/api/users')
+      console.log(response.data)
+      const data = await response.data
+      setUser(data)
+      console.log(userInfo, 'userInfo')
+    }
+    useUser()
+    fetchSlots()
+  }, [])
+
+  /*useEffect(() => {
     let arr = []
     for (let i = 0; i < 24; i++) {
       arr.push(i)
     }
     setSlots(arr)
-  }, [])
+  }, [])*/
   //get all users
 
   const users = [
@@ -82,13 +109,13 @@ const Slot = (id, date, userInfo) => {
 
   return (
     <div className="calendar-Grid">
-      {slots.map((e, slot) => {
+      {slots?.data?.map((e, slot) => {
         //set date to start first december of the year 2021
         const date = new Date(2021, 11, 1, 0, 0, 0, 0)
         date.setDate(date.getDate() + slot)
         return (
           // return a calendar card box with the current date and time
-          <div className={`card-${status}`} onClick={createCard} key={id}>
+          <div className={`card-${status}`} onClick={createCard} key={slot.id}>
             <div className="card">
               <h5 className="card-title date">
                 {date.toLocaleString('en-US', { month: 'long' })}{' '}

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const { calenderId } = req.query
 
   if (req.method.toLowerCase() === 'get') {
-    if (!Number(calenderId)) {
+    if (Number(calenderId)) {
       return res.status(400).json({
         success: false,
         error: `${calenderId} er ikke et tall`,
@@ -13,11 +13,7 @@ export default async function handler(req, res) {
     }
     const slots = await prisma.slot.findMany({
       where: {
-        calender: {
-          is: {
-            id: Number(calenderId),
-          },
-        },
+        calenderId,
       },
     })
 
