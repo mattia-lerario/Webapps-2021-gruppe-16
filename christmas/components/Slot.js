@@ -17,13 +17,13 @@ const Slot = (id, date, userInfo) => {
     }
     setSlots(arr)
   }, [])
-  //get all users
+  //get all users from db
 
   const users = [
     {
       id: 1,
       name: 'John Doe',
-      cardSlots: [
+      userSlots: [
         {
           id: 1,
           date: '2020-12-12',
@@ -53,7 +53,7 @@ const Slot = (id, date, userInfo) => {
     if (
       users.find(
         (user) =>
-          user.cardSlots.find((slot) => slot.code === code) === undefined
+          user.userSlots.find((slot) => slot.code === code) === undefined
       )
     ) {
       return code
@@ -67,14 +67,14 @@ const Slot = (id, date, userInfo) => {
     let date = new Date()
     let code = createCode()
     let newCard = {
-      id: users[0].cardSlots.length + 1,
+      id: users[0].userSlots.length + 1,
       date: date.toLocaleDateString(),
       status: 'open',
       code: code,
     }
-    users[0].cardSlots.push(newCard)
+    users[0].userSlots.push(newCard)
     openCard()
-    console.log(users[0].cardSlots.newCard)
+    console.log(users[0].userSlots.newCard)
     console.log(users)
   }
 
@@ -88,21 +88,21 @@ const Slot = (id, date, userInfo) => {
         date.setDate(date.getDate() + slot)
         return (
           // return a calendar card box with the current date and time
-          <div className={`card-${status}`} onClick={createCard} key={id}>
-            <div className="card">
+          <div className="card" onClick={createCard} key={slot.id}>
+            <div className={`card-${status}`}>
               <h5 className="card-title date">
                 {date.toLocaleString('en-US', { month: 'long' })}{' '}
                 {date.getDate()}
               </h5>
 
-              <div className={`card-content`}>
+              <div className="card-content">
                 <div className="row">
                   <div className="col-6">
                     <div className="card-text">
                       {users.map((user) => {
                         return (
                           <div key={user.id}>
-                            <p>{user.cardSlots.newCard}</p>
+                            <p>{user.userSlots.newCard}</p>
                           </div>
                         )
                       })}
