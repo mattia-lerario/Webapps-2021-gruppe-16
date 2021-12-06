@@ -1,8 +1,10 @@
+/* eslint sort-imports: ["error", { "ignoreDeclarationSort": true }] */
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-/* eslint sort-imports: ["error", { "ignoreDeclarationSort": true }] */
 import Slot from './Slot'
 
 const Calendar = ({ calendar }) => {
@@ -11,14 +13,11 @@ const Calendar = ({ calendar }) => {
   useEffect(() => {
     const fetch = async () => {
       await axios
-        .get('/api/slots', {
-          params: { id: calendar?.id },
-        })
+        .get(`/api/slots/${calendar?.id}`)
         .then((response) => {
           setSlots(response.data)
         })
         .catch((error) => {
-          /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
           console.warn(
             `${error}\nMessage: Failed to fetch slots data for calendar id ${calendar?.id}`
           )

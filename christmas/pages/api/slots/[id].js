@@ -2,9 +2,10 @@
 import prisma from '@/lib/clients/db'
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    const cid = parseInt(req.query.id, 10)
+  const { id } = req.query
+  const cid = parseInt(id, 10)
 
+  if (req.method === 'GET') {
     if (!cid) return res.status(404).json({ error: 'NaN value error' })
 
     const slots = await prisma.slot.findMany({

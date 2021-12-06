@@ -1,8 +1,8 @@
+/* eslint sort-imports: ["error", { "ignoreDeclarationSort": true }] */
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-/* eslint sort-imports: ["error", { "ignoreDeclarationSort": true }] */
 import Calendar from '@/components/Calendar'
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetch = async () => {
       await axios
-        .get(`/api/calendar/${calendarId}`)
+        .get(`/api/calendars/${calendarId}`)
         .then((response) => {
           setCalendarData(response.data)
         })

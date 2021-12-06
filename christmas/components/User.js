@@ -14,7 +14,7 @@ const User = () => {
     removeAdmin()
     router.reload()
   }
-  
+
   const setUserAsAdmin = () => {
     makeAdmin()
     router.reload()
