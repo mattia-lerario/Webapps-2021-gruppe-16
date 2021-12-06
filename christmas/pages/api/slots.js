@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import prisma from '@/lib/clients/db'
 
-export default async function handler(req, res) {
+export default async function slots(req, res) {
   const { calenderId } = req.query
 
   if (req.method.toLowerCase() === 'get') {
@@ -12,16 +12,21 @@ export default async function handler(req, res) {
       })
     }
     const slots = await prisma.slot.findMany({
+<<<<<<< Updated upstream
       where: {
         calender: {
           is: {
             id: Number(calenderId),
           },
         },
+=======
+      orderBy: {
+        id: 'desc',
+>>>>>>> Stashed changes
       },
     })
 
-    res.status(200).json({ success: true, data: slots })
+    return res.status(200).json(slots)
   } else {
     res.status(405).end()
   }
