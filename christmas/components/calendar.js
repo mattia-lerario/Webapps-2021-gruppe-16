@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useUser } from '@/hooks/useUser'
 import { useRouter } from 'next/router'
-
+import Slot from './Slot'
 const Calendar = (date, userInfo) => {
   //set slots data based on data from useEffect hook
   const [slots, setSlots] = useState([])
@@ -29,7 +29,7 @@ const Calendar = (date, userInfo) => {
           console.warn(
             `${error}\nMessage: Failed to fetch slots data for calendar id ${4}`
           )
-          setSlots([response.data])
+          setSlots(response.data)
         })
     }
 
@@ -105,33 +105,22 @@ const Calendar = (date, userInfo) => {
 
   return (
     <div className="calendar-Grid">
-      {slots?.data?.map((e, slot) => {
+      {slots?.data?.map((slot) => {
         //set date to start first december of the year 2021
-        const date = new Date(2021, 11, 1, 0, 0, 0, 0)
-        date.setDate(date.getDate() + slot)
-        console.log(slots)
-        return (
-          // return a calendar card box with the current date and time
-          <div
-            className={`card-${status}`}
-            onClick={createUserSlot}
-            key={slot.id}
-          >
-            <div className="card">
-              <h5 className="card-title date">
-                {date.toLocaleString('en-US', { month: 'long' })}{' '}
-                {date.getDate()}
-              </h5>
+        console.log(slot.calender)
 
-              <div className={`card-content`}>
-                <div className="row">
-                  <div className="col-6"></div>
-                  <div className="col-6">
-                    <p className="card-text"></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        return (
+          <div key={slot.id}>
+            <Slot
+              id={slot.id}
+              key={slot.id}
+              slug={slot.slug}
+              status="open"
+              createdAt={slot.createdAt}
+              openedAt={slot.openedAt}
+              calendarId={slot.calendarId}
+              userSlot={createUserSlot}
+            />
           </div>
         )
       })}
