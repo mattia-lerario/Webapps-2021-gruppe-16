@@ -1,4 +1,4 @@
-import Slot from '@/components/Slot'
+import Slot from '@/components/Calendar'
 import AdminDashboard from '@/components/AdminDashboard'
 import Calendar from '@/components/Calendar'
 import { useState, useEffect } from 'react'
@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div>
       <h1>Julekalender eksamen 2021</h1>
-      <Slot></Slot>
+      <Calendar></Calendar>
     </div>
   )
 }
