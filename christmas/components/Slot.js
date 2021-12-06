@@ -1,14 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useUser } from '@/hooks/useUser'
+import { useRouter } from 'next/router'
+
 const Slot = (date, userInfo) => {
   //set slots data based on data from useEffect hook
-  const [slots, setSlots] = useState({
-    slots: [],
-  })
+  const [slots, setSlots] = useState([])
   const [status, setStatus] = useState('')
-  const [user, setUser] = useState(userInfo)
-
+  const [user, setUser] = useState('')
+  const router = useRouter()
   const openCard = () => {
     //open card for specific user and set status
 
@@ -17,26 +18,27 @@ const Slot = (date, userInfo) => {
   //generate slots array with 24 items
 
   useEffect(() => {
-    const fetchSlots = async () => {
-      const response = await axios.get('/api/slots')
-      console.log(response.data, 'response')
-      const data = await response.data
-      setSlots(data)
-      console.log(slots, 'slots')
-      return data
+    const fetch = async () => {
+      await axios
+        .get('/api/slots')
+        .then((response) => {
+          setSlots(response.data)
+          console.log(slots)
+        })
+        .catch((error) => {
+          console.warn(
+            `${error}\nMessage: Failed to fetch slots data for calendar id ${4}`
+          )
+          setSlots([response.data])
+        })
     }
-    const useUser = async () => {
-      const response = await axios.get('/api/users')
-      console.log(response.data)
-      const data = await response.data
-      setUser(data)
-      console.log(userInfo, 'userInfo')
-      return data
-    }
-    useUser()
-    fetchSlots()
-  }, [])
 
+    fetch()
+
+    return () => {
+      /* cleanup */
+    }
+  }, [4])
   /*useEffect(() => {
     let arr = []
     for (let i = 0; i < 24; i++) {
@@ -77,11 +79,7 @@ const Slot = (date, userInfo) => {
   const createCode = () => {
     let code = generateCode()
     //check if code is unique
-    if (
-      users.find(
-        (user) => user.find((slot) => slot.code === code) === undefined
-      )
-    ) {
+    if (!user) {
       return code
     } else {
       createCode()
@@ -93,14 +91,13 @@ const Slot = (date, userInfo) => {
     let date = new Date()
     let code = createCode()
     let newCard = {
-      id: users[0].cardSlots.length + 1,
+      id: user.id,
       date: date.toLocaleDateString(),
       status: 'open',
       code: code,
     }
-    users[0].cardSlots.push(newCard)
+
     openCard()
-    console.log(users[0].cardSlots.newCard)
     console.log(users)
   }
 
@@ -112,9 +109,14 @@ const Slot = (date, userInfo) => {
         //set date to start first december of the year 2021
         const date = new Date(2021, 11, 1, 0, 0, 0, 0)
         date.setDate(date.getDate() + slot)
+        console.log(slots)
         return (
           // return a calendar card box with the current date and time
-          <div className={`card-${status}`} onClick={createCard} key={slot.id}>
+          <div
+            className={`card-${status}`}
+            onClick={createUserSlot}
+            key={slot.id}
+          >
             <div className="card">
               <h5 className="card-title date">
                 {date.toLocaleString('en-US', { month: 'long' })}{' '}
@@ -123,17 +125,7 @@ const Slot = (date, userInfo) => {
 
               <div className={`card-content`}>
                 <div className="row">
-                  <div className="col-6">
-                    <div className="card-text">
-                      {users.map((user) => {
-                        return (
-                          <div key={user.id}>
-                            <p>{user.cardSlots.newCard}</p>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
+                  <div className="col-6"></div>
                   <div className="col-6">
                     <p className="card-text"></p>
                   </div>
