@@ -1,27 +1,35 @@
-import Slot from '@/components/Slot'
-import AdminDashboard from '@/components/AdminDashboard'
-import Calendar from '@/components/Calendar'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
 import axios from 'axios'
 
+/* eslint sort-imports: ["error", { "ignoreDeclarationSort": true }] */
+import Calendar from '@/components/Calendar'
+
 export default function Home() {
-  const [slots, setSlots] = useState([])
+  const [calendarData, setCalendarData] = useState(false)
+  const [calendarId, setCalendarId] = useState(1)
 
-  //get slots from database and set state to slots
-
-  /*useEffect(() => {
-    const fetchSlots = async () => {
-      const response = await axios.get('/api/slots')
-      const data = await response.json()
-      setSlots(data)
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .get(`/api/calendar/${calendarId}`)
+        .then((response) => {
+          setCalendarData(response.data)
+        })
+        .catch((error) => {
+          /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+          console.warn(`${error}\nMessage: Failed to fetch calendar data`)
+          setCalendarData(false)
+        })
     }
-    fetchSlots()
-  }, [])*/
+
+    fetch()
+  }, [calendarId])
 
   return (
-    <div>
+    <main>
       <h1>Julekalender eksamen 2021</h1>
-      <Slot></Slot>
-    </div>
+      {calendarData && <Calendar calendar={calendarData} />}
+    </main>
   )
 }
