@@ -7,6 +7,8 @@ import Row from './Row'
 import Solution from './Solution'
 import { useGameContext } from '@/contexts/game-context'
 
+import axios from 'axios'
+
 const Rows = () => {
   const { state, dispatch } = useGameContext()
 
@@ -39,14 +41,27 @@ const Rows = () => {
   const handleRowSubmit = async (event) => {
     event.preventDefault()
     const hints = getHints()
+    console.log(hints)
 
     dispatch({ type: 'set_hints', payload: { hints } })
     if (hints?.positions === 4) {
       // TODO: Må lagre antall forsøk brukeren brukte på å løse oppgaven
 
+      const response = await axios.put(`/api/games/${state.game.id}`, {
+        ...state.game,
+        foundCombination: true,
+        numberOfTries: ++state.game.numberOfTries, // We count the winning guess as a "try"
+      })
+
       dispatch({ type: 'set_complete' })
     } else {
       // TODO: Må lagre at brukeren ikke klarte oppgaven når det ikke er flere forsøk igjen
+
+      const response = await axios.put(`/api/games/${state.game.id}`, {
+        ...state.game,
+        numberOfTries: ++state.game.numberOfTries,
+      })
+
       dispatch({ type: 'increase_row' })
     }
   }

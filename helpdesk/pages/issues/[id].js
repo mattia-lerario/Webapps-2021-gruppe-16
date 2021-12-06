@@ -27,8 +27,11 @@ export default function Issue() {
     return () => {} // Cleanup
   }, [])
 
+  // HANDLE GOING BACK
+  const handleClick = () => router.push('/issues')
+
   return !(issue && departments) ? (
-    <p>loading...</p>
+    ''
   ) : (
     <main>
       <SupportItem
