@@ -11,11 +11,10 @@ const Slot = (
   userSlot,
   status
 ) => {
-  const slugs = slug
   return (
-    <div className={`card${status}`} key={id}>
+    <div className={`card-${status}`} key={id}>
       <div className="card">
-        <h5 className="card-title date">{slugs}</h5>
+        <h5 className="card-title date">{slug}</h5>
 
         <div className={`card-content`}>
           <div className="row">

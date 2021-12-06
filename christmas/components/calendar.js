@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Slot from './Slot'
 const Calendar = (date, userInfo) => {
   //set slots data based on data from useEffect hook
-  const [slots, setSlots] = useState([])
+  const [slots, setSlots] = useState('')
   const [status, setStatus] = useState('')
   const [user, setUser] = useState('')
   const router = useRouter()
@@ -22,14 +22,15 @@ const Calendar = (date, userInfo) => {
       await axios
         .get('/api/slots')
         .then((response) => {
-          setSlots(response.data)
-          console.log(slots)
+          const data = response.data
+          //stringify data to be able to use it in the slot component
+
+          setSlots(data)
         })
         .catch((error) => {
           console.warn(
             `${error}\nMessage: Failed to fetch slots data for calendar id ${4}`
           )
-          setSlots(response.data)
         })
     }
 
@@ -107,15 +108,16 @@ const Calendar = (date, userInfo) => {
     <div className="calendar-Grid">
       {slots?.data?.map((slot) => {
         //set date to start first december of the year 2021
-        console.log(slot.calender)
-
+        console.log(slot)
+        const xid = JSON.stringify(slot)
+        console.log(xid)
         return (
           <div key={slot.id}>
             <Slot
               id={slot.id}
               key={slot.id}
               slug={slot.slug}
-              status="open"
+              status={status}
               createdAt={slot.createdAt}
               openedAt={slot.openedAt}
               calendarId={slot.calendarId}

@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function Home() {
-  const [slots, setSlots] = useState([])
-
   //get slots from database and set state to slots
 
   return (
