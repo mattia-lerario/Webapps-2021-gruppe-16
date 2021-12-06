@@ -12,17 +12,8 @@ export default async function slots(req, res) {
       })
     }
     const slots = await prisma.slot.findMany({
-<<<<<<< Updated upstream
-      where: {
-        calender: {
-          is: {
-            id: Number(calenderId),
-          },
-        },
-=======
       orderBy: {
         id: 'desc',
->>>>>>> Stashed changes
       },
     })
 

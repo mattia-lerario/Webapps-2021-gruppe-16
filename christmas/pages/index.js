@@ -4,21 +4,14 @@ import axios from 'axios'
 export default function Home() {
   //get slots from database and set state to slots
   const date = new Date()
-
+  //use effect that fetches slots from database
   useEffect(() => {
-    const fetchSlots = async () => {
-      try {
-        const response = await axios('/api/slots')
-
-        if (response?.data?.success) {
-          setSlots(response.data.slots)
-          console.log(response.data.slots, 'sss')
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchSlots()
+    axios
+      .get('/api/slots')
+      .then((res) => {
+        setSlots(res.data)
+      })
+      .catch((err) => console.log(err))
   }, [])
   return (
     <div>
