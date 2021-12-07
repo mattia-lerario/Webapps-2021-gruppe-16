@@ -54,7 +54,7 @@ const Slot = ({ slot }) => {
     if (open) {
       //create card for user
       const user = {
-        id: slot.id,
+        id: 1,
         name: 'john',
       }
       let date = new Date()
@@ -73,7 +73,7 @@ const Slot = ({ slot }) => {
         .then((response) => {
           const data = response.data
           //stringify data to be able to use it in the slot component
-          setUser(userSlot)
+          setUser(data)
         })
         .catch((error) => {
           console.warn(
