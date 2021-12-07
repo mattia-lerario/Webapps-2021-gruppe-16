@@ -1,4 +1,6 @@
 /* eslint sort-imports: ["error", { "ignoreDeclarationSort": true }] */
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
@@ -18,7 +20,6 @@ export default function Home() {
           setCalendarData(response.data)
         })
         .catch((error) => {
-          /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
           console.warn(`${error}\nMessage: Failed to fetch calendar data`)
           setCalendarData(false)
         })

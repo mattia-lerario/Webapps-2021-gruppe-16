@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 const Slot = ({ slot }) => {
+  const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [slotCode, setSlotCode] = useState('')
   const [user, setUser] = useState(null)
@@ -26,8 +27,9 @@ const Slot = ({ slot }) => {
         seconds: Math.floor((difference / 1000) % 60),
       }
     }
+    setOpen(true)
 
-    return setOpen(true)
+    return timeLeft
   }
 
   //function that returns a string with 4 random numbers and 4 random letters the code must be unique
@@ -94,20 +96,28 @@ const Slot = ({ slot }) => {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      if (loading) setLoading(false)
+    }
   })
 
   const timeDescription =
-    (timeLeft?.days > 0 && 'dager') ||
+    (timeLeft?.days > 1 && 'dager') ||
+    (timeLeft?.days > 0 && 'dag') ||
+    (timeLeft?.hours > 0 && 'timer') ||
     (timeLeft?.minutes > 0 && 'minutter') ||
     (timeLeft?.seconds > 0 && 'sekunder')
 
   const timeValue =
     (timeLeft?.days > 0 && timeLeft?.days) ||
+    (timeLeft?.hours > 0 && timeLeft?.hours) ||
     (timeLeft?.minutes > 0 && timeLeft?.minutes) ||
     (timeLeft?.seconds > 0 && timeLeft?.seconds)
 
-  return (
+  return loading ? (
+    <span className="slot">loading...</span>
+  ) : (
     <section
       key={slot?.id}
       className={!open ? 'slot' : 'slot open'}
@@ -124,6 +134,7 @@ const Slot = ({ slot }) => {
           <p>{slotCode}</p>
         </div>
       )}
+      
     </section>
   )
 }
