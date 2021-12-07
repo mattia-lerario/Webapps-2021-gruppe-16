@@ -26,6 +26,7 @@ OPPGAVE 4 TESTING MAPPE
 1) cd testing
 2) npm i / yarn install
 3) yarn test
+4) a
 
 Nå burde du kunne se testene i Terminalen.
 
