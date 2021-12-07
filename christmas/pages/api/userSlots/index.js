@@ -1,5 +1,7 @@
 // create a request that will be sent to the server get and post for the user slot
-export default async function userSlots(req, res) {
+import prisma from '@/lib/clients/db'
+
+export default async function handler(req, res) {
   // GET
   if (req.method === 'GET') {
     const userSlots = await prisma.userSlots.findMany({
