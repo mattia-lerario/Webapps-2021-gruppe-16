@@ -6,7 +6,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Calender" (
+CREATE TABLE "Calendar" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -19,8 +19,8 @@ CREATE TABLE "Slot" (
     "order" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "openAt" DATETIME NOT NULL,
-    "calenderId" INTEGER NOT NULL,
-    CONSTRAINT "Slot_calenderId_fkey" FOREIGN KEY ("calenderId") REFERENCES "Calender" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "calendarId" INTEGER NOT NULL,
+    CONSTRAINT "Slot_calendarId_fkey" FOREIGN KEY ("calendarId") REFERENCES "Calendar" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -36,7 +36,7 @@ CREATE TABLE "UserSlot" (
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Calender_name_key" ON "Calender"("name");
+CREATE UNIQUE INDEX "Calendar_name_key" ON "Calendar"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Slot_slug_key" ON "Slot"("slug");

@@ -54,7 +54,7 @@ const createSlot = async (id, order) => {
         slug,
         order,
         openAt,
-        calender: {
+        calendar: {
           connect: {
             id,
           },
@@ -81,8 +81,8 @@ const createSlots = async (id, slotCount) => {
   await Promise.all(slotPromises)
 }
 
-const christmasCalender = async () =>
-  prisma.calender.create({
+const christmasCalendar = async () =>
+  prisma.calendar.create({
     data: {
       name: 'Julekalender',
     },
@@ -92,10 +92,10 @@ async function main() {
   console.log('Start seeding ...')
   await prisma.user.deleteMany({})
   await prisma.slot.deleteMany({})
-  await prisma.calender.deleteMany({})
-  const calender = await christmasCalender()
+  await prisma.calendar.deleteMany({})
+  const calendar = await christmasCalendar()
 
-  await createSlots(calender.id, 24)
+  await createSlots(calendar.id, 24)
   await createUsers(10)
   console.log('Seeding finished.')
 }

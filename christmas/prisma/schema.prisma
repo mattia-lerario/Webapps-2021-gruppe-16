@@ -11,34 +11,32 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  username String @unique
-  createdAt DateTime @default(now())
+  id              Int         @id @default(autoincrement())
+  username        String      @unique
+  createdAt       DateTime    @default(now())
 }
 
-model Calender {
-  id Int @id @default(autoincrement())
-  name String @unique
-  createdAt DateTime @default(now())
-  slot Slot[]
+model Calendar {
+  id              Int         @id @default(autoincrement())
+  name            String      @unique
+  createdAt       DateTime    @default(now())
+  slots Slot[]
 }
 
 model Slot {
-  id Int @id @default(autoincrement())
-  slug String @unique
-  order Int @unique
-  createdAt DateTime @default(now())
-  openAt DateTime
-  calender Calender @relation(fields: [calenderId], references: [id])
-  calenderId Int
+  id              Int         @id @default(autoincrement())
+  slug            String      @unique
+  order           Int         @unique
+  createdAt       DateTime    @default(now())
+  openAt          DateTime
+  calendar        Calendar    @relation(fields: [calendarId], references: [id])
+  calendarId      Int
 }
 
 model UserSlot {
-  id Int @id @default(autoincrement())
-  coupon String
-  createdAt DateTime @default(now())
-  // Må lage relasjonen
-  slotId Int
-  // Må lage relasjonen
-  userId Int
+  id              Int         @id @default(autoincrement())
+  coupon          String
+  createdAt       DateTime    @default(now())
+  slotId          Int
+  userId          Int
 }
