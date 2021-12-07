@@ -10,6 +10,8 @@ gå til mappen helpdesk ved å åpne terminalen og skriv inn følgende kommand:
 
 5) npm run start
 
+( kan resette databasen via API på path /api/reset )
+
 Koden vil kjøre og dere vil få opp en liste med henvendelser.
 
 OPPGAVE 2 CHRISTMAS MAPPE 
