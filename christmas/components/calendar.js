@@ -105,28 +105,12 @@ const Calendar = (date, userInfo) => {
   // return a calendar item that loops 24 times and displays the current date
 
   return (
-    <div className="calendar-Grid">
-      {slots?.data?.map((slot) => {
-        //set date to start first december of the year 2021
-        console.log(slot)
-        const xid = JSON.stringify(slot)
-        console.log(xid)
-        return (
-          <div key={slot.id}>
-            <Slot
-              id={slot.id}
-              key={slot.id}
-              slug={slot.slug}
-              status={status}
-              createdAt={slot.createdAt}
-              openedAt={slot.openedAt}
-              calendarId={slot.calendarId}
-              userSlot={createUserSlot}
-            />
-          </div>
-        )
-      })}
-    </div>
+    <article className="calendar">
+      {slots &&
+        slots.map((element) => {
+          return <Slot key={element?.id} slot={element} />
+        })}
+    </article>
   )
 }
 
