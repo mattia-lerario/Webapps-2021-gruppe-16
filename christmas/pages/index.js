@@ -10,6 +10,23 @@ import Calendar from '@/components/Calendar'
 export default function Home() {
   const [calendarData, setCalendarData] = useState(false)
   const [calendarId, setCalendarId] = useState(1)
+  const [user, setUser] = useState(false)
+
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .get('/api/dummy')
+        .then((response) => {
+          setUser(response.data)
+        })
+        .catch((error) => {
+          console.warn(`${error}\nMessage: Failed to fetch dummy user data`)
+          setUser(false)
+        })
+    }
+
+    fetch()
+  }, [])
 
   useEffect(() => {
     const fetch = async () => {
@@ -30,7 +47,7 @@ export default function Home() {
   return (
     <main>
       <h1>Julekalender eksamen 2021</h1>
-      {calendarData && <Calendar calendar={calendarData} />}
+      {calendarData && <Calendar calendar={calendarData} user={user} />}
     </main>
   )
 }

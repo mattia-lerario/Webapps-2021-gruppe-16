@@ -7,7 +7,7 @@ import axios from 'axios'
 
 import Slot from './Slot'
 
-const Calendar = ({ calendar }) => {
+const Calendar = ({ calendar, user }) => {
   const [slots, setSlots] = useState([])
 
   useEffect(() => {
@@ -15,6 +15,7 @@ const Calendar = ({ calendar }) => {
       await axios
         .get(`/api/slots/${calendar?.id}`)
         .then((response) => {
+          console.log(response.data)
           setSlots(response.data)
         })
         .catch((error) => {
@@ -32,7 +33,7 @@ const Calendar = ({ calendar }) => {
     <article className="calendar">
       {slots &&
         slots.map((element) => {
-          return <Slot key={element?.id} slot={element} />
+          return <Slot key={element?.id} slot={element} user={user} />
         })}
     </article>
   )

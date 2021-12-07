@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from 'react'
 
-const Slot = ({ slot }) => {
+import axios from 'axios'
+
+const Slot = ({ slot, user }) => {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
+  const [opened, setOpened] = useState(false)
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -53,15 +56,51 @@ const Slot = ({ slot }) => {
     (timeLeft?.minutes > 0 && timeLeft?.minutes) ||
     (timeLeft?.seconds > 0 && timeLeft?.seconds)
 
+  const generateCode = () => {
+    let code = ''
+
+    for (let i = 0; i < 4; i++) {
+      code += String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+    }
+    for (let i = 0; i < 4; i++) {
+      code += Math.floor(Math.random() * 10)
+    }
+
+    return code
+  }
+
+  const handleOpen = async () => {
+    await axios
+      .get(`/api/userslots/${user?.user?.id}`)
+      .then((response) => {
+        if (response.data) {
+          console.log('Ja')
+        } else {
+          console.log('nei')
+        }
+      })
+      .catch((error) => {
+        console.warn(
+          `${error}\nMessage: Failed to fetch userslot data for user id ${user?.user?.id}`
+        )
+      })
+  }
+
   const closedComponent = () => (
-    <time>
-      Åpner om {timeValue} {timeDescription}
-    </time>
+    <>
+      <h1>{slot?.id}</h1>
+      <time>
+        Åpner om {timeValue} {timeDescription}
+      </time>
+    </>
   )
-  const openComponent = () => {}
+  const openComponent = () => <h1>{slot?.id}</h1>
+
+  const openedComponent = () => <div>{generateCode()}</div>
 
   const handleClick = () => {
     if (!open) return
+    setOpened(true)
     // Save that user clicked slot
     // Animation?
     // Show user slug?
@@ -71,8 +110,7 @@ const Slot = ({ slot }) => {
     <span className="slot">loading...</span>
   ) : (
     <section className={!open ? 'slot' : 'slot open'} onClick={handleClick}>
-      <h1>{slot?.id}</h1>
-      {!open ? closedComponent() : openComponent()}
+      {opened ? openedComponent() : !open ? closedComponent() : openComponent()}
     </section>
   )
 }
