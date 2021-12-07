@@ -1,4 +1,5 @@
 /* eslint-disable no-ternary */
+/* eslint-disable no-nested-ternary */
 
 import { useEffect, useState } from 'react'
 
@@ -8,6 +9,7 @@ const Slot = ({ slot, user }) => {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [opened, setOpened] = useState(false)
+  const [userSlot, setUserSlot] = useState(false)
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -69,15 +71,28 @@ const Slot = ({ slot, user }) => {
     return code
   }
 
-  const handleOpen = async () => {
+  const handleOpened = async () => {
+    if (userSlot) {
+      setOpened(true)
+
+      return
+    }
+
     await axios
       .get(`/api/userslots/${user?.user?.id}`)
       .then((response) => {
-        if (response.data) {
-          console.log('Ja')
+        if (response?.data?.length > 0) {
+          setUserSlot(response.data)
         } else {
-          console.log('nei')
+          const code = generateCode()
+
+          setUserSlot({
+            coupon: code,
+            userId: user?.user?.id,
+            slotId: slot?.id,
+          })
         }
+        setOpened(true)
       })
       .catch((error) => {
         console.warn(
@@ -86,19 +101,7 @@ const Slot = ({ slot, user }) => {
       })
   }
 
-  const closedComponent = () => (
-    <>
-      <h1>{slot?.id}</h1>
-      <time>
-        Åpner om {timeValue} {timeDescription}
-      </time>
-    </>
-  )
-  const openComponent = () => <h1>{slot?.id}</h1>
-
-  const openedComponent = () => <div>{generateCode()}</div>
-
-  const handleClick = () => {
+  const handleOpen = () => {
     if (!open) return
     setOpened(true)
     // Save that user clicked slot
@@ -106,12 +109,39 @@ const Slot = ({ slot, user }) => {
     // Show user slug?
   }
 
+  const handleClose = () => {
+    if (!open) return
+    setOpened(false)
+  }
+
+  const closedComponent = () => (
+    <section className="slot" onClick={handleOpen}>
+      <h1>{slot?.id}</h1>
+      <time>
+        Åpner om {timeValue} {timeDescription}
+      </time>
+    </section>
+  )
+  const openComponent = () => (
+    <section className="slot open" onClick={handleOpened}>
+      <h1>{slot?.id}</h1>
+    </section>
+  )
+
+  const openedComponent = () => (
+    <section className="slot opened" onClick={handleClose}>
+      <div>{userSlot?.coupon}</div>
+    </section>
+  )
+
   return loading ? (
     <span className="slot">loading...</span>
+  ) : opened ? (
+    openedComponent()
+  ) : !open ? (
+    closedComponent()
   ) : (
-    <section className={!open ? 'slot' : 'slot open'} onClick={handleClick}>
-      {opened ? openedComponent() : !open ? closedComponent() : openComponent()}
-    </section>
+    openComponent()
   )
 }
 

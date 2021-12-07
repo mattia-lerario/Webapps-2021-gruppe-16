@@ -39,6 +39,11 @@
   }
   // ---
 
+  &.opened {
+    background: $calendar-bg-color-highlight;
+    color: $calendar-text-color-opened;
+  }
+
   time {
     font-size: $slot-font-size-time;
     position: absolute; 

@@ -15,7 +15,6 @@ const Calendar = ({ calendar, user }) => {
       await axios
         .get(`/api/slots/${calendar?.id}`)
         .then((response) => {
-          console.log(response.data)
           setSlots(response.data)
         })
         .catch((error) => {
