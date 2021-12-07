@@ -34,16 +34,16 @@ const createUsers = async (userCount) => {
   await Promise.all(userPromises)
 }
 
-const createSlot = async (id, order) => {
+const createSlot = async (id, order, day) => {
   const slug = faker.lorem.slug()
   const currentYear = new Date().getFullYear()
   const currentMonth = new Date().getMonth()
-  const currentDay = new Date().getDay()
+  const currentDay = 1
   const openAt = new Date(
     currentYear,
     currentMonth,
-    currentDay + order,
-    12,
+    currentDay + day,
+    0,
     0,
     0
   ).toISOString()
@@ -74,7 +74,7 @@ const createSlots = async (id, slotCount) => {
   for (let i = 0; i < slotCount; i++) {
     const order = Number(i + 1)
 
-    const slot = await createSlot(id, order)
+    const slot = await createSlot(id, order, i)
 
     slotPromises.push(slot)
   }

@@ -1,13 +1,15 @@
 /* eslint-disable no-ternary */
+/* eslint-disable no-nested-ternary */
 
 import { useEffect, useState } from 'react'
+
 import axios from 'axios'
-const Slot = ({ slot }) => {
+
+const Slot = ({ slot, user }) => {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
-  const [slotCode, setSlotCode] = useState('')
-  const [user, setUser] = useState(null)
-
+  const [opened, setOpened] = useState(false)
+  const [userSlot, setUserSlot] = useState(false)
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -30,65 +32,6 @@ const Slot = ({ slot }) => {
     setOpen(true)
 
     return timeLeft
-  }
-
-  //function that returns a string with 4 random numbers and 4 random letters the code must be unique
-  //https://stackoverflow.com/questions/45828805/generate-string-characters-in-javascript/45828844
-  const generateCode = () => {
-    let code = ''
-
-    for (let i = 0; i < 4; i++) {
-      code += String.fromCharCode(Math.floor(Math.random() * 26) + 97)
-    }
-    for (let i = 0; i < 4; i++) {
-      code += Math.floor(Math.random() * 10)
-    }
-    return code
-  }
-
-  const createCode = () => {
-    let code = generateCode()
-    //check if code is unique
-    if (open) {
-      return code
-    } else {
-      createCode()
-    }
-  }
-
-  const openSlot = async () => {
-    if (open) {
-      //create card for user
-      let date = new Date()
-      let code = createCode()
-      if (!slotCode) {
-        setSlotCode(code)
-      } else {
-        console.warn('Slot has already been opened')
-      }
-
-      let userSlot = {
-        date: date.toLocaleDateString(),
-        status: 'open',
-        userId: 1,
-        slotId: slot.id,
-        coupon: code,
-      }
-
-      //send slot to server
-      await axios
-        .post(`/api/userSlots/`, userSlot)
-        .then((response) => {
-          const data = response.data
-          //stringify data to be able to use it in the slot component
-          setUser(data)
-        })
-        .catch((error) => {
-          console.warn(`${error}\nMessage: Failed to create slot for user ${1}`)
-        })
-    } else {
-      console.warn(`this slot is not open yet ${1}`)
-    }
   }
 
   useEffect(() => {
@@ -115,27 +58,87 @@ const Slot = ({ slot }) => {
     (timeLeft?.minutes > 0 && timeLeft?.minutes) ||
     (timeLeft?.seconds > 0 && timeLeft?.seconds)
 
+  const generateCode = () => {
+    let code = ''
+
+    for (let i = 0; i < 4; i += 1) {
+      code += String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+    }
+    for (let i = 0; i < 4; i += 1) {
+      code += Math.floor(Math.random() * 10)
+    }
+
+    return code
+  }
+
+  const handleOpened = async () => {
+    if (userSlot) {
+      setOpened(true)
+
+      return
+    }
+
+    await axios
+      .get(`/api/userslots/${user?.user?.id}`)
+      .then((response) => {
+        if (response?.data?.length > 0) {
+          setUserSlot(response.data)
+        } else {
+          const code = generateCode()
+
+          setUserSlot({
+            coupon: code,
+            userId: user?.user?.id,
+            slotId: slot?.id,
+          })
+        }
+        setOpened(true)
+      })
+      .catch((error) => {
+        console.warn(
+          `${error}\nMessage: Failed to fetch userslot data for user id ${user?.user?.id}`
+        )
+      })
+  }
+
+  const handleOpen = () => {
+    if (!open) return
+    setOpened(true)
+  }
+
+  const handleClose = () => {
+    if (!open) return
+    setOpened(false)
+  }
+
+  const closedComponent = () => (
+    <section className="slot" onClick={handleOpen}>
+      <h1>{slot?.id}</h1>
+      <time>
+        Åpner om {timeValue} {timeDescription}
+      </time>
+    </section>
+  )
+  const openComponent = () => (
+    <section className="slot open" onClick={handleOpened}>
+      <h1>{slot?.id}</h1>
+    </section>
+  )
+
+  const openedComponent = () => (
+    <section className="slot opened" onClick={handleClose}>
+      <div>{userSlot?.coupon}</div>
+    </section>
+  )
+
   return loading ? (
     <span className="slot">loading...</span>
+  ) : opened ? (
+    openedComponent()
+  ) : !open ? (
+    closedComponent()
   ) : (
-    <section
-      key={slot?.id}
-      className={!open ? 'slot' : 'slot open'}
-      onClick={openSlot}
-    >
-      <h1>{slot?.id}</h1>
-      {!open && (
-        <time>
-          Åpner om {timeValue} {timeDescription}
-        </time>
-      )}
-      {open && (
-        <div className="code">
-          <p>{slotCode}</p>
-        </div>
-      )}
-      
-    </section>
+    openComponent()
   )
 }
 

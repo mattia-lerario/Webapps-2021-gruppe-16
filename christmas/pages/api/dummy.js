@@ -7,6 +7,5 @@ export default async function handler(req, res) {
   // Du får tilbake f.eks { user: { id: 30, username: 'daphne' }, admin: false }
   const user = await userInfo(req)
 
-  console.log(user)
-  res.status(200).json({ message: 'Message from API' })
+  res.status(200).json(user)
 }

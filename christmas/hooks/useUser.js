@@ -19,8 +19,8 @@ export const useUser = () => {
       try {
         const response = await axios('/api/users')
 
-        if (response?.data?.success) {
-          setUsers(response.data.users)
+        if (response.status === 200) {
+          setUsers(response.data)
         }
       } catch (error) {
         console.log(error)
