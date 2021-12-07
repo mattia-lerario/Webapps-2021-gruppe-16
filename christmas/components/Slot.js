@@ -27,6 +27,58 @@ const Slot = ({ slot }) => {
     return setOpen(true)
   }
 
+  //function that returns a string with 4 random numbers and 4 random letters the code must be unique
+  const generateCode = () => {
+    let code = ''
+
+    for (let i = 0; i < 4; i++) {
+      code += String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+    }
+    for (let i = 0; i < 4; i++) {
+      code += Math.floor(Math.random() * 10)
+    }
+    return code
+  }
+
+  const createCode = () => {
+    let code = generateCode()
+    //check if code is unique
+    if (open) {
+      return code
+    } else {
+      createCode()
+    }
+  }
+
+  const openSlot = async () => {
+    if (open) {
+      //create card for user
+      let date = new Date()
+      let code = createCode()
+      let userSlot = {
+        id: user.id,
+        date: date.toLocaleDateString(),
+        status: 'open',
+        code: code,
+      }
+
+      //send slot to server
+      await axios
+        .post(`/api/calendars/${calendarId}`, userSlot)
+        .then((response) => {
+          const data = response.data
+          //stringify data to be able to use it in the slot component
+          setUser(userSlot)
+        })
+        .catch((error) => {
+          console.warn(
+            `${error}\nMessage: Failed to create slot for user ${user.id}`
+          )
+        })
+    }
+    console.log(users)
+  }
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft())
@@ -46,7 +98,11 @@ const Slot = ({ slot }) => {
     (timeLeft?.seconds > 0 && timeLeft?.seconds)
 
   return (
-    <section className={!open ? 'slot' : 'slot open'}>
+    <section
+      key={slot?.id}
+      className={!open ? 'slot' : 'slot open'}
+      onClick={openSlot}
+    >
       <h1>{slot?.id}</h1>
       {!open && (
         <time>
