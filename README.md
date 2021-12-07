@@ -13,12 +13,18 @@ gå til mappen helpdesk ved å åpne terminalen og skriv inn følgende kommand:
 Koden vil kjøre og dere vil få opp en liste med henvendelser.
 
 OPPGAVE 2 CHRISTMAS MAPPE 
-1) cd Christmas
+1) cd christmas
 2) npm i / yarn install
 3) npx prisma migrate / yarn prisma:migrate
 4) npx prisma seed / yarn prisma:seed
 Kjører prosjektet
 5) npm run dev
+
+OPPGAVE 4 TESTING MAPPE 
+1) cd testing
+2) npm i / yarn install
+3) yarn test
+Nå burde du kunne se testene i Terminalen.
 
 
 Problemer med Oppgaven: 
