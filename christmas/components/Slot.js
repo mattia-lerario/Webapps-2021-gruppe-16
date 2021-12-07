@@ -53,10 +53,7 @@ const Slot = ({ slot }) => {
   const openSlot = async () => {
     if (open) {
       //create card for user
-      const user = {
-        id: 1,
-        name: 'john',
-      }
+
       let date = new Date()
       let code = createCode()
       let userSlot = {
@@ -69,7 +66,7 @@ const Slot = ({ slot }) => {
 
       //send slot to server
       await axios
-        .post(`/api/user/${user.id}`, userSlot)
+        .post(`/api/users/${user.id}`, userSlot)
         .then((response) => {
           const data = response.data
           //stringify data to be able to use it in the slot component

@@ -14,6 +14,8 @@ model User {
   id              Int         @id @default(autoincrement())
   username        String      @unique
   createdAt       DateTime    @default(now())
+  userSlot        UserSlot    @relation(fields: [userId], references: [id])
+  userSlotId      Int         @unique
 }
 
 model Calendar {
