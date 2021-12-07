@@ -39,3 +39,7 @@ helpdesk/prisma/dev.db
 *.db
 helpdesk/prisma/dev.db
 *.db
+<<<<<<< HEAD
+=======
+christmas/prisma/dev.db
+>>>>>>> 6ab4ea40acfb44674ccd4736b49dbc8216a351c0
