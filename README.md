@@ -7,7 +7,6 @@ gå til mappen helpdesk ved å åpne terminalen og skriv inn følgende kommand:
 2) npm i / yarn install
 3) npx prisma migrate / yarn prisma:migrate
 4) npx prisma seed / yarn prisma:seed
-
 5) npm run start
 
 ( kan resette databasen via API på path /api/reset )
@@ -19,14 +18,20 @@ Koden vil kjøre og dere vil få opp en liste med henvendelser.
 2) npm i / yarn install
 3) npx prisma migrate / yarn prisma:migrate
 4) npx prisma seed / yarn prisma:seed
-Kjører prosjektet
+5) npm run dev
+
+### OPPGAVE 2 CHRISTMAS MAPPE 
+1) cd master_mind
+2) npm i / yarn install
+3) npx prisma migrate / yarn prisma:migrate
+4) npx prisma seed / yarn prisma:seed
 5) npm run dev
 
 ### OPPGAVE 4 TESTING MAPPE 
 1) cd testing
 2) npm i / yarn install
 3) yarn test
-4) a
+4) velg "a"
 
 Nå burde du kunne se testene i Terminalen.
 
