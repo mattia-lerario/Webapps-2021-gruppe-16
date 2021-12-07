@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 const Slot = ({ slot }) => {
   const [open, setOpen] = useState(false)
-
+  const [slotCode, setSlotCode] = useState('')
   const [user, setUser] = useState(null)
 
   const [timeLeft, setTimeLeft] = useState({
@@ -59,6 +59,12 @@ const Slot = ({ slot }) => {
       //create card for user
       let date = new Date()
       let code = createCode()
+      if (!slotCode) {
+        setSlotCode(code)
+      } else {
+        console.warn('Slot has already been opened')
+      }
+
       let userSlot = {
         date: date.toLocaleDateString(),
         status: 'open',
@@ -112,6 +118,11 @@ const Slot = ({ slot }) => {
         <time>
           Åpner om {timeValue} {timeDescription}
         </time>
+      )}
+      {open && (
+        <div className="code">
+          <p>{slotCode}</p>
+        </div>
       )}
     </section>
   )
