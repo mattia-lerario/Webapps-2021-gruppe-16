@@ -4,33 +4,26 @@ import prisma from '@/lib/clients/db'
 export default async function handler(req, res) {
   // GET
   if (req.method === 'GET') {
-    const userSlots = await prisma.userSlots.findMany({
-      where: {
-        id: req.query.id,
+    const userSlots = await prisma.userSlot.findMany({
+      orderBy: {
+        createdAt: 'desc',
       },
     })
 
     if (!userSlots) return res.status(200).json('No slots found userSlot')
-    return res.status(200).json(userSlot)
+    return res.status(200).json(userSlots)
 
     // POST
   } else if (req.method === 'POST') {
-    let userSlot = await prisma.userSlot.findUnique({
-      where: {
-        id: req?.body?.id,
-      },
-    })
-    let userId = userSlot.id
-
     const newUserSlot = await prisma.userSlot.create({
       data: {
         coupon: req?.body?.coupon,
         createdAt: new Date(),
         slotId: req?.body?.slotId,
-        userId: userId,
+        userId: req?.body?.userId,
       },
     })
-
+    console.log(newUserSlot)
     if (!newUserSlot) return res.status(400).json('failed to open Slot')
     return res.status(200).json(newUserSlot)
   }

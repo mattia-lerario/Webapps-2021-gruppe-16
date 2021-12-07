@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 const Slot = ({ slot }) => {
   const [open, setOpen] = useState(false)
+
+  const [user, setUser] = useState(null)
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -53,30 +56,29 @@ const Slot = ({ slot }) => {
   const openSlot = async () => {
     if (open) {
       //create card for user
-
       let date = new Date()
       let code = createCode()
       let userSlot = {
         date: date.toLocaleDateString(),
         status: 'open',
-        userId: user.id,
+        userId: 1,
         slotId: slot.id,
-        code: code,
+        coupon: code,
       }
 
       //send slot to server
       await axios
-        .post(`/api/users/${user.id}`, userSlot)
+        .post(`/api/userSlots/`, userSlot)
         .then((response) => {
           const data = response.data
           //stringify data to be able to use it in the slot component
           setUser(data)
         })
         .catch((error) => {
-          console.warn(
-            `${error}\nMessage: Failed to create slot for user ${user.id}`
-          )
+          console.warn(`${error}\nMessage: Failed to create slot for user ${1}`)
         })
+    } else {
+      console.warn(`this slot is not open yet ${1}`)
     }
   }
 
