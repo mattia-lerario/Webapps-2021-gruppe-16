@@ -71,6 +71,21 @@ const Slot = ({ slot, user }) => {
     return code
   }
 
+  const registerUserSlot = async (newUserSlot) => {
+    await axios
+      .post('/api/userslots', {
+        data: newUserSlot,
+      })
+      .then((response) => {
+        setUserSlot(response.data)
+      })
+      .catch((error) => {
+        console.warn(
+          `${error}\nMessage: Failed to fetch userslot data for user id ${user?.user?.id}`
+        )
+      })
+  }
+
   const handleOpened = async () => {
     if (userSlot) {
       setOpened(true)
@@ -79,18 +94,20 @@ const Slot = ({ slot, user }) => {
     }
 
     await axios
-      .get(`/api/userslots/${user?.user?.id}`)
+      .get(`/api/userslots/${user?.user?.id}`, { params: { slot: slot.id } })
       .then((response) => {
-        if (response?.data?.length > 0) {
+        if (response?.data?.id) {
           setUserSlot(response.data)
         } else {
           const code = generateCode()
 
-          setUserSlot({
+          const newUserSlot = {
             coupon: code,
             userId: user?.user?.id,
             slotId: slot?.id,
-          })
+          }
+
+          registerUserSlot(newUserSlot)
         }
         setOpened(true)
       })
