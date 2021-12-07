@@ -38,3 +38,4 @@ yarn-error.log*
 helpdesk/prisma/dev.db
 *.db
 helpdesk/prisma/dev.db
+*.db

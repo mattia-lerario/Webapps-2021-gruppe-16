@@ -104,9 +104,6 @@ const Slot = ({ slot, user }) => {
   const handleOpen = () => {
     if (!open) return
     setOpened(true)
-    // Save that user clicked slot
-    // Animation?
-    // Show user slug?
   }
 
   const handleClose = () => {

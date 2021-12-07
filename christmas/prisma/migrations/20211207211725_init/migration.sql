@@ -29,7 +29,9 @@ CREATE TABLE "UserSlot" (
     "coupon" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "slotId" INTEGER NOT NULL,
-    "userId" INTEGER NOT NULL
+    "userId" INTEGER NOT NULL,
+    CONSTRAINT "UserSlot_slotId_fkey" FOREIGN KEY ("slotId") REFERENCES "Slot" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "UserSlot_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
