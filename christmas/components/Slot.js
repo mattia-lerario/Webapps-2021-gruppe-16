@@ -31,6 +31,7 @@ const Slot = ({ slot }) => {
   }
 
   //function that returns a string with 4 random numbers and 4 random letters the code must be unique
+  //https://stackoverflow.com/questions/45828805/generate-string-characters-in-javascript/45828844
   const generateCode = () => {
     let code = ''
 
