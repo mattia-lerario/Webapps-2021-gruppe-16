@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     const slots = await prisma.slot.findMany({
       where: {
-        calendarId: {
+        id: {
           equals: cid,
         },
       },

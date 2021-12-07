@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import Calendar from '@/components/Calendar'
+import { useUser } from '@/hooks/useUser'
 
 export default function Home() {
   const [calendarData, setCalendarData] = useState(false)
