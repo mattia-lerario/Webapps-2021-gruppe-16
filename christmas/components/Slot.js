@@ -1,7 +1,7 @@
 /* eslint-disable no-ternary */
 
 import { useEffect, useState } from 'react'
-
+import axios from 'axios'
 const Slot = ({ slot }) => {
   const [open, setOpen] = useState(false)
   const [timeLeft, setTimeLeft] = useState({
@@ -53,18 +53,23 @@ const Slot = ({ slot }) => {
   const openSlot = async () => {
     if (open) {
       //create card for user
+      const user = {
+        id: slot.id,
+        name: 'john',
+      }
       let date = new Date()
       let code = createCode()
       let userSlot = {
-        id: user.id,
         date: date.toLocaleDateString(),
         status: 'open',
+        userId: user.id,
+        slotId: slot.id,
         code: code,
       }
 
       //send slot to server
       await axios
-        .post(`/api/calendars/${calendarId}`, userSlot)
+        .post(`/api/user/${user.id}`, userSlot)
         .then((response) => {
           const data = response.data
           //stringify data to be able to use it in the slot component
@@ -76,7 +81,6 @@ const Slot = ({ slot }) => {
           )
         })
     }
-    console.log(users)
   }
 
   useEffect(() => {
