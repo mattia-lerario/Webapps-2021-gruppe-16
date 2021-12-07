@@ -1,7 +1,9 @@
 /* eslint-disable no-ternary */
 
 import { useEffect, useState } from 'react'
+
 import axios from 'axios'
+
 const Slot = ({ slot }) => {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
@@ -32,8 +34,8 @@ const Slot = ({ slot }) => {
     return timeLeft
   }
 
-  //function that returns a string with 4 random numbers and 4 random letters the code must be unique
-  //https://stackoverflow.com/questions/45828805/generate-string-characters-in-javascript/45828844
+  // function that returns a string with 4 random numbers and 4 random letters the code must be unique
+  // https://stackoverflow.com/questions/45828805/generate-string-characters-in-javascript/45828844
   const generateCode = () => {
     let code = ''
 
@@ -43,31 +45,33 @@ const Slot = ({ slot }) => {
     for (let i = 0; i < 4; i++) {
       code += Math.floor(Math.random() * 10)
     }
+
     return code
   }
 
   const createCode = () => {
-    let code = generateCode()
-    //check if code is unique
+    const code = generateCode()
+
+    // check if code is unique
     if (open) {
       return code
-    } else {
-      createCode()
     }
+    createCode()
   }
 
   const openSlot = async () => {
     if (open) {
-      //create card for user
-      let date = new Date()
-      let code = createCode()
+      // create card for user
+      const date = new Date()
+      const code = createCode()
+
       if (!slotCode) {
         setSlotCode(code)
       } else {
         console.warn('Slot has already been opened')
       }
 
-      let userSlot = {
+      const userSlot = {
         date: date.toLocaleDateString(),
         status: 'open',
         userId: 1,
@@ -75,12 +79,13 @@ const Slot = ({ slot }) => {
         coupon: code,
       }
 
-      //send slot to server
+      // send slot to server
       await axios
-        .post(`/api/userSlots/`, userSlot)
+        .post('/api/userSlots/', userSlot)
         .then((response) => {
-          const data = response.data
-          //stringify data to be able to use it in the slot component
+          const { data } = response
+
+          // stringify data to be able to use it in the slot component
           setUser(data)
         })
         .catch((error) => {
@@ -134,7 +139,6 @@ const Slot = ({ slot }) => {
           <p>{slotCode}</p>
         </div>
       )}
-      
     </section>
   )
 }

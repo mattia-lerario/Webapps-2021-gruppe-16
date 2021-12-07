@@ -33,7 +33,7 @@ const Calendar = (date, userInfo) => {
     }
 
     fetch()
-  }, [])
+  }, [date?.id])
 
   // return a calendar item that loops 24 times and displays the current date
 
