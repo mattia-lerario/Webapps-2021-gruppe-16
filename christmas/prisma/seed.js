@@ -75,6 +75,28 @@ const createSlot = async (id, order) => {
   }
 }
 
+const createUserSlot = async () => {
+  const coupon = 'abcd1234'
+  const createdAt = new Date().toISOString()
+  const slotId = faker.random.number()
+  const userId = 1
+
+  try {
+    const userSlot = await prisma.userSlot.create({
+      data: {
+        coupon,
+        createdAt,
+        slotId,
+        userId,
+      },
+    })
+
+    return userSlot
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const createSlots = async (id, slotCount) => {
   const slotPromises = []
 
@@ -82,6 +104,19 @@ const createSlots = async (id, slotCount) => {
     const order = Number(i + 1)
 
     const slot = await createSlot(id, order)
+
+    slotPromises.push(slot)
+  }
+  await Promise.all(slotPromises)
+}
+
+const createUserSlots = async (slotCount) => {
+  const slotPromises = []
+
+  for (let i = 0; i < slotCount; i++) {
+    const order = Number(i + 1)
+
+    const slot = await createUserSlot()
 
     slotPromises.push(slot)
   }
@@ -104,6 +139,7 @@ async function main() {
 
   await createSlots(calendar.id, 24)
   await createUsers(10)
+  await createUserSlots(5)
   console.log('Seeding finished.')
 }
 

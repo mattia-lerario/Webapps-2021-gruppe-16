@@ -5,19 +5,19 @@ export default async function handler(req, res) {
   // GET
   if (req.method === 'GET') {
     const userSlots = await prisma.userSlots.findMany({
-      orderBy: {
-        id: 'desc',
+      where: {
+        id: req.query.id,
       },
     })
 
-    if (!userSlots) return res.status(404).json('failed to get userSlot')
+    if (!userSlots) return res.status(200).json('No slots found userSlot')
     return res.status(200).json(userSlot)
 
     // POST
   } else if (req.method === 'POST') {
     let userSlot = await prisma.userSlot.findUnique({
       where: {
-        name: req?.body?.id,
+        id: req?.body?.id,
       },
     })
     let userId = userSlot.id
