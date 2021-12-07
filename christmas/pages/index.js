@@ -9,7 +9,7 @@ import Calendar from '@/components/Calendar'
 
 export default function Home() {
   const [calendarData, setCalendarData] = useState(false)
-  const [calendarId, setCalendarId] = useState(1)
+  const [calendarId, setCalendarId] = useState(1) // Planning ahead in case we have more than 1 calendar in the future
   const [user, setUser] = useState(false)
 
   useEffect(() => {

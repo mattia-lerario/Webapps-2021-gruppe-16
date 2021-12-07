@@ -43,7 +43,7 @@ const createSlot = async (id, order, day) => {
     currentYear,
     currentMonth,
     currentDay + day,
-    12,
+    0,
     0,
     0
   ).toISOString()

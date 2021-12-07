@@ -61,10 +61,10 @@ const Slot = ({ slot, user }) => {
   const generateCode = () => {
     let code = ''
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i += 1) {
       code += String.fromCharCode(Math.floor(Math.random() * 26) + 97)
     }
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i += 1) {
       code += Math.floor(Math.random() * 10)
     }
 

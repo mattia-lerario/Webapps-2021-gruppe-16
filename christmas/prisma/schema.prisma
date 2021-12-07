@@ -14,7 +14,6 @@ model User {
   id        Int        @id @default(autoincrement())
   username  String     @unique
   createdAt DateTime   @default(now())
-  UserSlot  UserSlot[]
 }
 
 model Calendar {
@@ -32,15 +31,12 @@ model Slot {
   openAt     DateTime
   calendar   Calendar   @relation(fields: [calendarId], references: [id])
   calendarId Int
-  UserSlot   UserSlot[]
 }
 
 model UserSlot {
   id        Int      @id @default(autoincrement())
   coupon    String
   createdAt DateTime @default(now())
-  slots     Slot     @relation(fields: [slotId], references: [id])
   slotId    Int
-  users     User     @relation(fields: [userId], references: [id])
   userId    Int
 }
