@@ -36,12 +36,15 @@ const Slot = ({ slot }) => {
   })
 
   const timeDescription =
-    (timeLeft?.days > 0 && 'dager') ||
+    (timeLeft?.days > 1 && 'dager') ||
+    (timeLeft?.days > 0 && 'dag') ||
+    (timeLeft?.hours > 0 && 'timer') ||
     (timeLeft?.minutes > 0 && 'minutter') ||
     (timeLeft?.seconds > 0 && 'sekunder')
 
   const timeValue =
     (timeLeft?.days > 0 && timeLeft?.days) ||
+    (timeLeft?.hours > 0 && timeLeft?.hours) ||
     (timeLeft?.minutes > 0 && timeLeft?.minutes) ||
     (timeLeft?.seconds > 0 && timeLeft?.seconds)
 

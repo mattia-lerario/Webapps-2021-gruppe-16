@@ -26,10 +26,6 @@ const Calendar = ({ calendar }) => {
     }
 
     fetch()
-
-    return () => {
-      /* cleanup */
-    }
   }, [calendar.id])
 
   return (

@@ -1,11 +1,11 @@
-@import "./root.scss";
+@import "./utility.scss";
 
 
 .calendar {
   display: grid;
-  grid-template-columns: repeat(var(--calendar-columns), 1fr);
+  grid-template-columns: repeat($calendar-columns, 1fr);
   grid-auto-rows: 1fr;
-  grid-gap: var(--calendar-gap);
+  grid-gap: $calendar-gap;
 }
 .calendar::before {
   content: '';
