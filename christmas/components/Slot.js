@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 const Slot = ({ slot }) => {
+  const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
-
+  const [slotCode, setSlotCode] = useState('')
   const [user, setUser] = useState(null)
 
   const [timeLeft, setTimeLeft] = useState({
@@ -26,11 +27,13 @@ const Slot = ({ slot }) => {
         seconds: Math.floor((difference / 1000) % 60),
       }
     }
+    setOpen(true)
 
-    return setOpen(true)
+    return timeLeft
   }
 
   //function that returns a string with 4 random numbers and 4 random letters the code must be unique
+  //https://stackoverflow.com/questions/45828805/generate-string-characters-in-javascript/45828844
   const generateCode = () => {
     let code = ''
 
@@ -58,6 +61,12 @@ const Slot = ({ slot }) => {
       //create card for user
       let date = new Date()
       let code = createCode()
+      if (!slotCode) {
+        setSlotCode(code)
+      } else {
+        console.warn('Slot has already been opened')
+      }
+
       let userSlot = {
         date: date.toLocaleDateString(),
         status: 'open',
@@ -87,20 +96,28 @@ const Slot = ({ slot }) => {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      if (loading) setLoading(false)
+    }
   })
 
   const timeDescription =
-    (timeLeft?.days > 0 && 'dager') ||
+    (timeLeft?.days > 1 && 'dager') ||
+    (timeLeft?.days > 0 && 'dag') ||
+    (timeLeft?.hours > 0 && 'timer') ||
     (timeLeft?.minutes > 0 && 'minutter') ||
     (timeLeft?.seconds > 0 && 'sekunder')
 
   const timeValue =
     (timeLeft?.days > 0 && timeLeft?.days) ||
+    (timeLeft?.hours > 0 && timeLeft?.hours) ||
     (timeLeft?.minutes > 0 && timeLeft?.minutes) ||
     (timeLeft?.seconds > 0 && timeLeft?.seconds)
 
-  return (
+  return loading ? (
+    <span className="slot">loading...</span>
+  ) : (
     <section
       key={slot?.id}
       className={!open ? 'slot' : 'slot open'}
@@ -112,6 +129,12 @@ const Slot = ({ slot }) => {
           Åpner om {timeValue} {timeDescription}
         </time>
       )}
+      {open && (
+        <div className="code">
+          <p>{slotCode}</p>
+        </div>
+      )}
+      
     </section>
   )
 }

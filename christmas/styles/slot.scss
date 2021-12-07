@@ -1,4 +1,4 @@
-@import "./root.scss";
+@import "./utility.scss";
 
 
 .slot {
@@ -7,21 +7,40 @@
   justify-items: center;
   align-content: center;
   
-  border: 1px solid var(--calendar-border-color);
+  border: 1px solid $calendar-border-color;
   border-radius: 1rem;
-  background-color: var(--calendar-bg-color-closed);
-  color: var(--calendar-text-color-closed);
-  box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  background-color: $calendar-bg-color-closed;
+  color: $calendar-text-color-closed;
 
 
   &.open {    
-    background-color: var(--calendar-bg-color-open);
-    color: var(--calendar-text-color-open);
+    background-color: $calendar-bg-color-open;
+    color: $calendar-text-color-open;
   }
 
+  // https://www.sliderrevolution.com/resources/css-button-hover-effects/
+  &.open {
+    background: lighten(#fff, 3%);  
+    border: 1px solid darken($calendar-border-color, 4%);
+    box-shadow: 0px 2px 0 darken($slot-box-shadow-primary, 5%), 2px 4px 6px darken($slot-box-shadow-secondary, 2%);
+    font-weight: 900;
+    letter-spacing: 1px;
+    transition: all 150ms linear;
+  }
+  
+  &.open:hover {
+    background: darken($calendar-bg-color-open, 2.5%);
+    border: 1px solid $calendar-border-color;
+    box-shadow: 1px 1px 2px rgba($slot-box-shadow-primary, .2);
+    color: lighten($christmas-cinnabar, 18%); 
+    text-decoration: none;
+    text-shadow: -1px -1px 0 darken($christmas-green, 9.5%);
+    transition: all 250ms linear;
+  }
+  // ---
+
   time {
-    font-size: var(--slot-font-size-time);
-    color: var(--slot-text-color-time);
+    font-size: $slot-font-size-time;
     position: absolute; 
     bottom: 30%;
   }
