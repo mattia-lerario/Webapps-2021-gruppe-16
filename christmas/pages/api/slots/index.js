@@ -18,7 +18,6 @@ export default async function slots(req, res) {
     })
 
     return res.status(200).json(slots)
-  } else {
-    res.status(405).end()
   }
+  res.status(405).end()
 }
