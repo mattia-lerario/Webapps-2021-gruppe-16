@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 const Slot = ({ slot }) => {
+  const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -23,8 +24,9 @@ const Slot = ({ slot }) => {
         seconds: Math.floor((difference / 1000) % 60),
       }
     }
+    setOpen(true)
 
-    return setOpen(true)
+    return timeLeft
   }
 
   useEffect(() => {
@@ -32,7 +34,10 @@ const Slot = ({ slot }) => {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      if (loading) setLoading(false)
+    }
   })
 
   const timeDescription =
@@ -48,14 +53,26 @@ const Slot = ({ slot }) => {
     (timeLeft?.minutes > 0 && timeLeft?.minutes) ||
     (timeLeft?.seconds > 0 && timeLeft?.seconds)
 
-  return (
-    <section className={!open ? 'slot' : 'slot open'}>
+  const closedComponent = () => (
+    <time>
+      Åpner om {timeValue} {timeDescription}
+    </time>
+  )
+  const openComponent = () => {}
+
+  const handleClick = () => {
+    if (!open) return
+    // Save that user clicked slot
+    // Animation?
+    // Show user slug?
+  }
+
+  return loading ? (
+    <span className="slot">loading...</span>
+  ) : (
+    <section className={!open ? 'slot' : 'slot open'} onClick={handleClick}>
       <h1>{slot?.id}</h1>
-      {!open && (
-        <time>
-          Åpner om {timeValue} {timeDescription}
-        </time>
-      )}
+      {!open ? closedComponent() : openComponent()}
     </section>
   )
 }
