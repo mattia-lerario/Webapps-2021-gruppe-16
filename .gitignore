@@ -35,3 +35,6 @@ yarn-error.log*
 .vercel
 *.next
 .next
+helpdesk/prisma/dev.db
+*.db
+helpdesk/prisma/dev.db

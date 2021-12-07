@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import * as React from 'react'
+import axios from 'axios'
 
 import { createRows } from '@/lib/utils'
 
@@ -115,7 +116,7 @@ function gameReducer(state, action) {
         selectedColors: [...state.selectedColors],
       }
     }
-    case 'set_combination': {
+    case 'set_game': {
       return {
         ...state,
         game: payload.game,
@@ -131,16 +132,34 @@ const GameProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(gameReducer, initialState)
 
   React.useEffect(() => {
-    const getCombination = async () => {
-      // TODO: Må kalle api for å hente rett kombinasjon
+    const registerGame = async () => {
+      // GET USER
+      const user = await axios.get('/api/users')
+      if (!user.status === 200) return console.log('Failed to get user')
+
+      // GET RANDOM COMBINATION
+      // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array/46545530#46545530
+      const combination = colors
+        .map((a) => ({ sort: Math.random(), value: a }))
+        .sort((a, b) => a.sort - b.sort)
+        .map((a) => a.value)
+        .slice(0, 4) // Get 4 items
+
+      // CREATE GAME
+      const game = await axios.post('/api/games', {
+        user: user.data,
+        combination: combination.map((color) => color).join(' '),
+      })
+
+      console.log(combination)
 
       dispatch({
-        type: 'set_combination',
-        payload: { game: null },
+        type: 'set_game',
+        payload: { game: { ...game.data, combination: combination } },
       })
     }
 
-    getCombination()
+    registerGame()
   }, [])
   const value = { state, dispatch }
 
